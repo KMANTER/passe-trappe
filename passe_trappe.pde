@@ -2,12 +2,15 @@
 import vialab.SMT.*;
 
 //constant
-int window_width = 1200;
-int window_height = 800;
-int thickness = 15;
-public static final int EASY = 110;
-public static final int MEDIUM = 100;
-public static final int HARD = 90;
+final int window_width = 1200;
+final int window_height = 700;
+final int thickness = 20;
+final int marge = 150;
+public static final int EASY = 140;
+public static final int MEDIUM = 120;
+public static final int HARD = 100;
+
+final int paddleRadius = 25; // Diam: 50
 
 void setup() {
   size(1200,700);
@@ -16,19 +19,44 @@ void setup() {
 }
 
 void draw() {
-  background(50, , 127, 61);
-  base();
+  PImage img;
+  img = loadImage("backgroundTexture.png");
+  background(img);
+  base(HARD);
 }
 
-void base(){
-  // draw a rectangle( x, y, w, h )
-  rect(0, 0, thickness, window_height);
-  rect(0, 0, window_width, thickness);
-  rect(window_width - thickness, 0, thickness, window_height);
-  rect(0, window_height - thickness, window_width, thickness);
+void base(int level){
+  fill(204, 80, 0);
+  // Rectangle(x, y, widht, height) 
+  rect(0, 0, window_width, thickness); // Top
+  rect(window_width - thickness, 0, thickness, window_height); // Right
+  rect(0, window_height - thickness, window_width, thickness); // Bottom
+  rect(0, 0, thickness, window_height); // Left
   
-  rect(window_width / 2, 0, thickness, (window_height/2) - (EASY / 2));
-  rect(window_width / 2, (window_height/2 + EASY/2), thickness, (window_height/2) - (EASY / 2));
+  // Middle block
+  rect(((window_width / 2)- (thickness /2)), 0, thickness, (window_height/2 - level/2));
+  rect(((window_width / 2)- (thickness /2)), (window_height/2 + (level/2)), thickness, (window_height/2) - (EASY / 2));
+  
+  fill(0);
+  // test elastic
+  rect(marge, 0, 1, window_height); // Left
+  rect(window_width - 1 - marge, 0, 1, window_height); // Right
+  
+  PImage border = null;
+  switch(level){
+    case EASY:
+      border = loadImage("borderEasy.png");
+      break;
+    case MEDIUM:
+      border = loadImage("borderMedium.png");
+      break;
+    case HARD:
+      border = loadImage("borderHard.png");
+      break;
+    default:
+      break;
+  }
+  image(border,0,0);
 }
 
 public class Wall extends Zone{
