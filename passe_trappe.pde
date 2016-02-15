@@ -1,13 +1,9 @@
-
 //SMT library imports
 import vialab.SMT.*;
 
 //constant
 int window_width = 1200;
 int window_height = 800;
-
-
-
   
 void setup() {
   size(1200,700);
@@ -24,10 +20,6 @@ void draw() {
   }
 
 }
-
-
-
-
 
 public class Wall extends Zone{
   public PVector a; //one end of the wall
@@ -55,4 +47,3 @@ public class Wall extends Zone{
     rect( a.x - halfWidth, position.y - halfHeight, width, height);
   }
 }
-
