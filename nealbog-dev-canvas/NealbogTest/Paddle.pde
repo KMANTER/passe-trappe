@@ -6,16 +6,17 @@ public class Paddle extends Zone{
   private float y;
   
   // Size of the paddle
-  private int size
+  private int size;
   
   public Paddle(int x, int y, int size){
     this.x = x;
     this.y = y;
     this.size = size;
+    this.initPaddle();
   }
   
   void initPaddle(){
-    Zone zone = new Zone("Paddle");
+    Zone paddle = new Zone("Paddle");
     SMT.add(paddle); 
   }
   

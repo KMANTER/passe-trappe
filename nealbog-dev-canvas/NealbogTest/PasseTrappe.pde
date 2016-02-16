@@ -21,7 +21,7 @@ class PasseTrappe extends MiniGame {
   void init() {
     strokeWeight(2);
     fill(204, 102, 0);
-    SMT.init( this, TouchSource.AUTOMATIC);
+    SMT.init(this, TouchSource.AUTOMATIC);
     paddles = new ArrayList<Paddle>();
     this.supplyPaddle();
   }
