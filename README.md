@@ -14,7 +14,7 @@ Par soucis de détection du tactile par le matériel, le joueur devra utiliser u
 Spécifications : 
 
 Partie client :
-La partie se joue en 2 manches gagnantes.
+\nLa partie se joue en 2 manches gagnantes.
 Chaque partie sera limitée à 2’30. Le jeu s’arrête dès qu’un joueur passe tous ses palets de l’autre coté. Passé la limite de temps, le joueur gagnant sera désigné par le nombre de palets passé de l’autre coté (l’égalité étant possible).
 Les palets seront au nombre de 10 (5 par camp) et ils seront éjectables via un élastique situé en bas du camp.
 Le palet mesure 8 cm de diamètre.
