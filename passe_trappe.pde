@@ -11,13 +11,29 @@ public static final int MEDIUM = 120;
 public static final int HARD = 100;
 final int paddleRadius = 75;
 
+ArrayList<Paddle> paddles;
+
 void setup() {
   size(1200,700, SMT.RENDERER);
   strokeWeight(2);
   fill(204, 102, 0);
   SMT.init( this, TouchSource.AUTOMATIC);
-  MyZone myZone = new MyZone(window_width, window_height);
-  myZone.initZone();
+  paddles = new ArrayList<Paddle>();
+  this.supplyPaddle();
+}
+
+void supplyPaddle(){
+  
+  for(int i=0; i < 10; i++){
+    Paddle p;
+    int mod = i % 2;
+    if( mod == 0){// Left Zone
+      p = new Paddle( marge + paddleRadius + thickness, marge + ((i-mod)*paddleRadius), this.paddleRadius);
+    }else{// Right Zone
+      p = new Paddle( this.window_width - (marge + paddleRadius + thickness) , marge + ((i-mod)*paddleRadius), this.paddleRadius);
+    }
+    paddles.add(p);
+  }
 }
 
 void draw() {
@@ -47,8 +63,6 @@ void base(int level){
   rect(marge, 0, 1, window_height); // Left
   rect(window_width - 1 - marge, 0, 1, window_height); // Right
   
-  ellipse(window_width / 2, window_height/2, paddleRadius, paddleRadius);
-  
   PImage border = null;
   switch(level){
     case EASY:
@@ -70,30 +84,4 @@ void base(int level){
 
 
 
-public class Paddle extends Zone{
-  
-  private float x;
-  private float y;
-  private int width;
-  private int height;
-  Zone paddle;
-  
-  public Paddle(int x, int y, int w, int h){
-    this.width = w;
-    this.height = h;
-  }
-  
-  void initPaddle(){
-    this.paddle = new Zone( "Paddle");
-    
-    SMT.add(paddle); 
-    SMT.add(MiddleLeft); 
-    SMT.add(MiddleRight); 
-    SMT.add(Right); 
-  }
-  
-  void drawPaddle(Zone zone){
-    rect(0, 0, 100, 100);
-  }
-}
 
