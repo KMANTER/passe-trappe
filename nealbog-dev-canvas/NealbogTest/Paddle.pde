@@ -12,15 +12,20 @@ public class Paddle extends Zone{
     this.x = x;
     this.y = y;
     this.size = size;
-    this.initPaddle();
-  }
-  
-  void initPaddle(){
-    Zone paddle = new Zone("Paddle");
-    SMT.add(paddle); 
+    
+    Zone paddle = new Zone("paddle");
+    SMT.add(paddle);
+    
+    println("x:"+x+"/y:"+y);
   }
   
   void drawPaddle(Zone zone){
-    rect(this.x, this.y, this.size, this.size);
+    print("Draw paddle"); 
+    ellipse(this.x, this.y, this.size, this.size);
+  }
+  
+  void touchPaddle(Zone zone){
+    print("Touch paddle"); 
+    fill(250);
   }
 }

@@ -28,14 +28,16 @@ class PasseTrappe extends MiniGame {
   }
   
   void supplyPaddle(){
-  
+    
+    //Positionning
     for(int i=0; i < 10; i++){
+      print(i+"->");
       Paddle p;
       int mod = i % 2;
       if( mod == 0){// Left Zone
-        p = new Paddle( marge + paddleRadius + thickness, marge + ((i-mod)*paddleRadius), this.paddleRadius);
+        p = new Paddle( this.marge + this.paddleRadius + this.thickness, this.marge + ((i-mod) * this.paddleRadius), this.paddleRadius);
       }else{// Right Zone
-        p = new Paddle( this.window_width - (marge + paddleRadius + thickness) , marge + ((i-mod)*paddleRadius), this.paddleRadius);
+        p = new Paddle( this.window_width - (this.marge + this.paddleRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.paddleRadius)), this.paddleRadius);
       }
       paddles.add(p);
     }
