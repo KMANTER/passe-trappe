@@ -14,14 +14,15 @@ class PasseTrappe extends MiniGame {
 
   ArrayList<Paddle> paddles;
   
+  // Constructor
   PasseTrappe() {
   }
   
-
+  
   void init() {
     strokeWeight(2);
     fill(204, 102, 0);
-    SMT.init(this, TouchSource.AUTOMATIC);
+    
     paddles = new ArrayList<Paddle>();
     this.supplyPaddle();
   }
@@ -53,7 +54,7 @@ class PasseTrappe extends MiniGame {
   
   void base(int level){
     PImage img;
-    img = loadImage("backgroundTexture.png");
+    img = loadImage("assets/backgroundTexture.png");
     background(img);
     
     // Rectangle(x, y, widht, height) 
@@ -70,6 +71,7 @@ class PasseTrappe extends MiniGame {
             thickness, (window_height/2) - (EASY / 2));
     
     fill(0);
+    
     // test elastic
     rect(marge, 0, 1, window_height); // Left
     rect(window_width - 1 - marge, 0, 1, window_height); // Right
@@ -77,13 +79,13 @@ class PasseTrappe extends MiniGame {
     PImage border = null;
     switch(level){
       case EASY:
-        border = loadImage("borderEasy.png");
+        border = loadImage("assets/borderEasy.png");
         break;
       case MEDIUM:
-        border = loadImage("borderMedium.png");
+        border = loadImage("assets/borderMedium.png");
         break;
       case HARD:
-        border = loadImage("borderHard.png");
+        border = loadImage("assets/borderHard.png");
         break;
       default:
         break;

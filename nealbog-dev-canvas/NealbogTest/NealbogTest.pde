@@ -1,3 +1,6 @@
+//SMT library imports
+import vialab.SMT.*;
+
 Game game = new Game();
 
 void registerMiniGames() {
@@ -6,8 +9,9 @@ void registerMiniGames() {
 
 // Subscribe your mini-game here:
 void setup() {
+  size(1200, 700, SMT.RENDERER);
   registerMiniGames();
-  
+  SMT.init(this, TouchSource.AUTOMATIC);
   game.start();
 }
 
