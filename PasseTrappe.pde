@@ -13,23 +13,22 @@ class PasseTrappe extends MiniGame {
   final int paddleRadius = 75;
 
   ArrayList<Paddle> paddles;
-  int i = 0;
+  
   // Constructor
   PasseTrappe() {
-    paddles = new ArrayList<Paddle>();
-    
   }
+  
   
   void init() {
     strokeWeight(2);
     fill(204, 102, 0);
-    println(++i);
-    base(this.MEDIUM);
-    //this.supplyPaddle();
+    
+    paddles = new ArrayList<Paddle>();
+    this.supplyPaddle();
   }
   
   void supplyPaddle(){
-    println("______________");
+    
     //Positionning
     for(int i=0; i < 10; i++){
       print(i+"->");
@@ -52,7 +51,7 @@ class PasseTrappe extends MiniGame {
   }
   
   void draw() {
-    
+    base(this.MEDIUM);
   }
   
   void base(int level){

@@ -6,20 +6,26 @@ public class Paddle extends Zone{
   private float y;
   
   // Size of the paddle
-  private int size
+  private int size;
   
   public Paddle(int x, int y, int size){
     this.x = x;
     this.y = y;
     this.size = size;
-  }
-  
-  void initPaddle(){
-    Zone zone = new Zone("Paddle");
-    SMT.add(paddle); 
+    
+    Zone paddle = new Zone("paddle");
+    SMT.add(paddle);
+    
+    println("x:"+x+"/y:"+y);
   }
   
   void drawPaddle(Zone zone){
-    rect(this.x, this.y, this.size, this.size);
+    print("Draw paddle"); 
+    ellipse(this.x, this.y, this.size, this.size);
+  }
+  
+  void touchPaddle(Zone zone){
+    print("Touch paddle"); 
+    fill(250);
   }
 }

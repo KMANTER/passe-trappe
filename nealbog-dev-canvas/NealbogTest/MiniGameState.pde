@@ -16,7 +16,12 @@ class MiniGameState implements IState {
   }
   
   public IState update(float delta) {
-    return this.miniGame.update(delta);
+    IState newState = this.miniGame.update(delta);
+    if (newState.equals(this.miniGame)) {
+      return this;
+    } else {
+      return newState;
+    }
   }
   
   public void draw() {

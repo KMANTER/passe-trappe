@@ -16,8 +16,6 @@ class GameController {
       MiniGame miniGame = this.miniGames.get(index);
       miniGame.registerGameController(this);
       
-      miniGame.init();
-      
       return miniGame;
     } else {
       println("No mini game has been registered!");
