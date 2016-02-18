@@ -2,7 +2,6 @@ class Game {
   private IState currentState;
   private IState nextState;
   private GameController gameController;
-  private InputHandler inputHandler;
   private boolean started;
   
   private int currTime, prevTime;
@@ -10,7 +9,6 @@ class Game {
 
   Game() {
     this.started = false;
-    this.inputHandler = new InputHandler();
     this.gameController = new GameController();
   }
   
@@ -26,11 +24,12 @@ class Game {
 
   void handleInput() {
     if (this.started) {
-      this.currentState.handleInput(this.inputHandler);
+      this.currentState.handleInput(this.gameController.getInputHandler());
     }
   }
 
-  void update() {    
+  void update() {
+    this.gameController.getInputHandler().update();
     if (this.started) {
       this.currTime = millis();
       this.delta = (this.currTime - this.prevTime) / 1000.0;
@@ -56,5 +55,15 @@ class Game {
       this.nextState.init();
       this.currentState = this.nextState;
     }
+  }
+  
+  public void startCalibration() {
+    this.currentState = new CalibrationState(gameController);
+    this.nextState = this.currentState;
+    this.currentState.init();
+    
+    this.currTime = this.prevTime = millis();
+    
+    this.started = true;
   }
 }

@@ -1,8 +1,10 @@
 class GameController {
   private ArrayList<MiniGame> miniGames;
+  private InputHandler inputHandler;
   
   GameController() {
     this.miniGames = new ArrayList<MiniGame>();
+    this.inputHandler = new InputHandler(width, height);
   }
   
   void registerMiniGame(MiniGame miniGame) {
@@ -25,4 +27,8 @@ class GameController {
   }
   
   void addKeyToCurrentPlayer(){}
+  
+  InputHandler getInputHandler() {
+    return inputHandler;
+  }
 }
