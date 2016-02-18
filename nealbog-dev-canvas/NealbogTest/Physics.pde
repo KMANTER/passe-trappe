@@ -112,7 +112,7 @@ public class Physics extends Thread {
     if( puck.scored) return;
     for( Wall wall : game.getWalls()){
       //get puck to wall distance
-      PVector distanceVector = wall.distanceVector( puck.position);
+      PVector distanceVector = wall.distanceVector(puck.position);
       float distance = distanceVector.mag();
       //print( String.format( "%f %f ", distanceVector.x, distanceVector.y));
       //print( String.format( "%f ", distance));
@@ -140,6 +140,7 @@ public class Physics extends Thread {
     }
     return false;
   }
+  
   public void handleNetCollisions( Puck puck){
     //check player's net
     if( handleNetCollision( puck, game.getPlayer())){

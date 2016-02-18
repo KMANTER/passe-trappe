@@ -77,36 +77,21 @@ public class PasseTrappe extends MiniGame {
     bottomMiddleLeftCorner = new PVector(this.window_halfWidth - (this.thickness / 2), window_height - this.thickness);
     bottomMiddleRightCorner = new PVector(this.window_halfWidth + (this.thickness / 2), window_height - this.thickness);
     bottomRightCorner = new PVector( window_width - this.marge, window_height - this.thickness);
-    
-    
-    
-    
+
     //create walls
     walls = new Vector<Wall>();
     walls.add( new Wall( topLeftCorner, topMiddleLeftCorner, this));
-    println("wall 1");
     walls.add( new Wall( topMiddleLeftCorner, middleTopLeftCorner, this));
-    println("wall 2");
     walls.add( new Wall( middleTopLeftCorner, middleTopRightCorner, this));
-    println("wall 3");
     walls.add( new Wall( middleTopRightCorner, topMiddleRightCorner, this));
-    println("wall 4");
     walls.add( new Wall( topMiddleRightCorner, topRightCorner, this));
-    println("wall 5");
     walls.add( new Wall( topRightCorner, bottomRightCorner, this));
-    println("wall 6");
     walls.add( new Wall( bottomRightCorner, bottomMiddleRightCorner, this));
-    println("wall 7");
     walls.add( new Wall( bottomMiddleRightCorner, middleBottomRightCorner, this));
-    println("wall 8");
     walls.add( new Wall( middleBottomRightCorner, middleBottomLeftCorner, this));
-    println("wall 9");
     walls.add( new Wall( middleBottomLeftCorner, bottomMiddleLeftCorner, this));
-    println("wall 10");
     walls.add( new Wall( bottomMiddleLeftCorner, bottomLeftCorner, this));
-    println("wall 11");
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
-    println("wall 12");
     
     
     //create nets
@@ -141,6 +126,11 @@ public class PasseTrappe extends MiniGame {
   }
 
   void handleInput(InputHandler inputHandler) {
+    if(pucks.size() > 0){
+      for(Puck p : pucks){
+        p.update(inputHandler.getTouches());
+      }
+    }
   }
   
   IState update(float delta) {

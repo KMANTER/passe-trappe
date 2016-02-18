@@ -6,10 +6,10 @@ public class Puck extends Zone{
   private float y;
   //static fields
   final static String name = "Puck";
-  final static float aniStepsPerDraw = 0.15;
-  final static float maxSpeed = 10.0;
+  final static float animStepsPerDraw = 0.15;
+  final static float maxSpeed = 5.0;
   final static int defaultRadius = 30;
-  final static float initialSpeedBound = 10;
+  final static float initialSpeedBound = 1;
   //fields
   public float radius;
   public float mass;
@@ -24,7 +24,7 @@ public class Puck extends Zone{
     super(name, 0, 0, defaultRadius, defaultRadius);
     this.radius = defaultRadius;
     this.mass = 1;
-    reset();
+    //reset();
   }
   
   public Puck(int x, int y, int radius) {
@@ -53,9 +53,9 @@ public class Puck extends Zone{
         position.x, position.y,
         this.width * (1.0 + animation_step),
         this.height * (1.0 + animation_step));
-      animation_step += aniStepsPerDraw;
+      animation_step += animStepsPerDraw;
       if( animation_step > 1.0){
-        this.reset();
+        //this.reset();
       }
     }
   }
@@ -66,18 +66,22 @@ public class Puck extends Zone{
         position.x, position.y,
         this.width, this.height);
   }
-  public void touch(){
-    Touch touch = getActiveTouch(0);
+  
+  public void update(Touch[] touches){
+    if(touches.length == 0) return ;
+
+    Touch touch = touches[0];
     assert( touch != null);
 
     float dx = touch.x - position.x;
     float dy = touch.y - position.y;
 
-    velocity.x = dx * 20;
-    velocity.y = dy * 20;
+    velocity.x = dx * 10;
+    velocity.y = dy * 10;
+    
   }
 
-  //utility functions
+  /*utility functions
   public void reset(){
     scored = false;
     velocity = new PVector(
@@ -89,5 +93,5 @@ public class Puck extends Zone{
     for( Touch touch : this.getTouches()){
       touch.unassignZone( this);
     }
-  }
+  }*/
 }

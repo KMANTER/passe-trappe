@@ -1,4 +1,4 @@
-final int windowWidth = 1280;
+final int windowWidth = 1200;
 final int windowHeight = 700;
 
 Game game = new Game();
@@ -12,9 +12,9 @@ void setup() {
   registerMiniGames();
   size(windowWidth, windowHeight, SMT.RENDERER);
   SMT.init(this, TouchSource.AUTOMATIC);
-  frameRate(200);
-  game.startCalibration();
-  //game.start();
+  frameRate(60);
+  //game.startCalibration();
+  game.start();
 }
 
 void draw() {
