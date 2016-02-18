@@ -7,7 +7,7 @@ public class Physics extends Thread {
   public final int ticksPerSecond = 250;
   public final long nanosecondsPerSecond = 1000000000;
   public final float jiggle = 0.001;
-  public final float friction = 0.998;
+  public final float friction = 1; //0.998
   public double secondsPerTick;
   //public variables
   public boolean terminate = false;
@@ -43,6 +43,7 @@ public class Physics extends Thread {
         puck.velocity.normalize();
         puck.velocity.mult( Puck.maxSpeed);
       }*/
+      
       PVector step = new PVector( puck.velocity.x, puck.velocity.y);
       step.x *= dtime;
       step.y *= dtime;
@@ -56,21 +57,17 @@ public class Physics extends Thread {
     for( Puck puck : game.getPucks()){
       handleWallCollisions( puck);
     }
-    /*for( Puck puck : game.getPucks()){
-      handleNetCollisions( puck);
-    }*/
+    
     applyTickLimit();
   }
 
   //collision functions
   public void handlePuckCollisions( Puck puck, int index){
-    if( puck.scored) return;
+    
     for( int i = index + 1; i < game.getPucks().size(); i++){
       Puck other = game.getPucks().get( i);
-      if( other.scored) continue;
 
-      PVector difference = PVector.sub(
-        other.position, puck.position);
+      PVector difference = PVector.sub(other.position, puck.position);
       float distance = difference.mag() - puck.radius - other.radius;
       //println( String.format("%f %f", difference.x, difference.y));
       if( distance < 0){
