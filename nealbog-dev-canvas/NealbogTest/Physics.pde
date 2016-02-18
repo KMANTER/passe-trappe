@@ -56,9 +56,9 @@ public class Physics extends Thread {
     for( Puck puck : game.getPucks()){
       handleWallCollisions( puck);
     }
-    for( Puck puck : game.getPucks()){
+    /*for( Puck puck : game.getPucks()){
       handleNetCollisions( puck);
-    }
+    }*/
     applyTickLimit();
   }
 
@@ -130,7 +130,7 @@ public class Physics extends Thread {
     }
     //println();
   }
-
+/*
   public boolean handleNetCollision( Puck puck, Net net){
     if( puck.scored) return false;
     if( net.touches( puck)){
@@ -150,7 +150,7 @@ public class Physics extends Thread {
     if( handleNetCollision( puck, game.getEnemy())){
       game.getPlayer().score++;
     }
-  }
+  }*/
 
   //utility functions
   private void updateTime(){

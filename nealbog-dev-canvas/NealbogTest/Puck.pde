@@ -7,7 +7,7 @@ public class Puck extends Zone{
   //static fields
   final static String name = "Puck";
   final static float animStepsPerDraw = 0.15;
-  final static float maxSpeed = 5.0;
+  final static float maxSpeed = 1;
   final static int defaultRadius = 30;
   final static float initialSpeedBound = 1;
   //fields
@@ -18,7 +18,8 @@ public class Puck extends Zone{
   //private fields
   private boolean scored;
   private float animation_step;
-
+  private Puck current = null;
+  
   //constructor
   public Puck(){
     super(name, 0, 0, defaultRadius, defaultRadius);
@@ -38,9 +39,9 @@ public class Puck extends Zone{
     position = new PVector( x, y);
   }
 
-  //SMT override methods
   public void draw(){
-    if( !scored){
+    
+    if(!scored){
       stroke( 255, 255, 255, 50);
       fill( 150, 50, 50, 255);
       ellipse(
@@ -58,13 +59,18 @@ public class Puck extends Zone{
         //this.reset();
       }
     }
+    
   }
   
   public void pickDraw() {
-    if( ! scored)
+    //if( !scored)
       ellipse(
         position.x, position.y,
         this.width, this.height);
+  }
+  
+  public void touch(){
+    this.current = this;
   }
   
   public void update(Touch[] touches){
@@ -76,8 +82,8 @@ public class Puck extends Zone{
     float dx = touch.x - position.x;
     float dy = touch.y - position.y;
 
-    velocity.x = dx * 10;
-    velocity.y = dy * 10;
+    velocity.x = dx * 2;
+    velocity.y = dy * 2;
     
   }
 
@@ -90,7 +96,7 @@ public class Puck extends Zone{
     position = new PVector(
       (1200/2) + (int) random(-5, 5),
       (700/2) + (int) random(-5, 5));
-    for( Touch touch : this.getTouches()){
+    for(vialab.SMT.Touch touch : this.getTouches()){
       touch.unassignZone( this);
     }
   }*/

@@ -27,8 +27,8 @@ public class PasseTrappe extends MiniGame {
   Physics physics = new Physics(this);
   
   //nets
-  public Net player;
-  public Net enemy;
+  //public Net player;
+  //public Net enemy;
 
   //corners
   public PVector topLeftCorner;
@@ -94,17 +94,24 @@ public class PasseTrappe extends MiniGame {
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
     
     
-    //create nets
+    /*create nets
     player = new Net( "Player", 0, -window_halfHeight, 50, 400);
     enemy = new Net( "Enemy", -window_width, -window_halfHeight, 50, 400);
     SMT.add( player);
     SMT.add( enemy);
+    */
+    
+    //start up the physics engine
+    try{
+      Thread.sleep( 0);
+    } catch( InterruptedException e){}
+    
+    base(this.HARD);
     
     physics.start();
   }
   
   void supplyPuck(){
-    
     //Positionning
     for(int i=0; i < 10; i++){
       print(i+"->");
@@ -138,13 +145,13 @@ public class PasseTrappe extends MiniGame {
   }
   
   void draw() {
-    base(this.HARD);
+    
   }
   
   void base(int level){
     PImage img;
     img = loadImage("assets/backgroundTexture.png");
-    background(img);
+    //background(img);
   
     fill(0);
     // test elastic
@@ -177,13 +184,13 @@ public class PasseTrappe extends MiniGame {
     return this.walls;
   }
   
-  public Net getPlayer(){
+  /*public Net getPlayer(){
     return this.player;
   }
   
   public Net getEnemy(){
     return this.enemy;
-  }
+  }*/
   
   //functions
   //projection of one onto other
