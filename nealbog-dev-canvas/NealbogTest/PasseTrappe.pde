@@ -26,10 +26,6 @@ public class PasseTrappe extends MiniGame {
   public Vector<Wall> walls;
   Physics physics = new Physics(this);
   
-  //nets
-  //public Net player;
-  //public Net enemy;
-
   //corners
   public PVector topLeftCorner;
   public PVector topRightCorner;
@@ -47,7 +43,8 @@ public class PasseTrappe extends MiniGame {
   public PVector middleBottomRightCorner;
   
   PImage border = null;
-  PImage img;
+  PImage img = null;
+  
   // Constructor
   PasseTrappe() {
   }
@@ -84,20 +81,20 @@ public class PasseTrappe extends MiniGame {
     //create walls
     walls = new Vector<Wall>();
     walls.add( new Wall( topLeftCorner, topMiddleLeftCorner, this));
-    /*walls.add( new Wall( topMiddleLeftCorner, middleTopLeftCorner, this));
+    walls.add( new Wall( topMiddleLeftCorner, middleTopLeftCorner, this));
     walls.add( new Wall( middleTopLeftCorner, middleTopRightCorner, this));
     walls.add( new Wall( middleTopRightCorner, topMiddleRightCorner, this));
-    walls.add( new Wall( topMiddleRightCorner, topRightCorner, this));*/
-    walls.add( new Wall( topMiddleLeftCorner, topRightCorner, this));
+    walls.add( new Wall( topMiddleRightCorner, topRightCorner, this));
+    /*walls.add( new Wall( topMiddleLeftCorner, topRightCorner, this));*/
     
     walls.add( new Wall( topRightCorner, bottomRightCorner, this));
     walls.add( new Wall( bottomRightCorner, bottomMiddleRightCorner, this));
-    /*walls.add( new Wall( bottomMiddleRightCorner, middleBottomRightCorner, this));
+    walls.add( new Wall( bottomMiddleRightCorner, middleBottomRightCorner, this));
     walls.add( new Wall( middleBottomRightCorner, middleBottomLeftCorner, this));
     walls.add( new Wall( middleBottomLeftCorner, bottomMiddleLeftCorner, this));
     walls.add( new Wall( bottomMiddleLeftCorner, bottomLeftCorner, this));
-    */
-    walls.add( new Wall( bottomMiddleRightCorner, bottomLeftCorner, this));
+
+    /*walls.add( new Wall( bottomMiddleRightCorner, bottomLeftCorner, this));*/
     
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
     
@@ -140,10 +137,10 @@ public class PasseTrappe extends MiniGame {
       Puck p;
       int mod = i % 2;
       if( mod == 0){// Left Zone
-       p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
-     }else{// Right Zone
-       p = new Puck( this.window_width - (this.marge + this.puckRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.puckRadius)), this.puckRadius);
-     }
+        p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
+      }else{// Right Zone
+        p = new Puck( this.window_width - (this.marge + this.puckRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.puckRadius)), this.puckRadius);
+      }
       println(i + " : "+p.x+"/"+p.y);
       pucks.add(p);
     }
@@ -170,11 +167,10 @@ public class PasseTrappe extends MiniGame {
   void draw() {
     background(img);
     image(border, 0, 0); // Image position
-    base(this.HARD);
+    elastic();
   }
   
-  void base(int level){
-    
+  void elastic(){
     fill(0);
     // test elastic
     rect(marge, 0, 1, window_height); // Left
@@ -188,14 +184,6 @@ public class PasseTrappe extends MiniGame {
   public Vector<Wall> getWalls(){
     return this.walls;
   }
-  
-  /*public Net getPlayer(){
-    return this.player;
-  }
-  
-  public Net getEnemy(){
-    return this.enemy;
-  }*/
   
   //functions
   //projection of one onto other
