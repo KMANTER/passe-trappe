@@ -7,7 +7,7 @@ public class Puck extends Zone{
   //static fields
   final static String name = "Puck";
   final static float animStepsPerDraw = 0.15;
-  final static float maxSpeed = 1;
+  final static float maxSpeed = 10;
   final static int defaultRadius = 30;
   final static float initialSpeedBound = 1;
   //fields
@@ -22,14 +22,14 @@ public class Puck extends Zone{
   
   //constructor
   public Puck(){
-    super(name, 0, 0, defaultRadius, defaultRadius);
+    super(name, 0, 0, defaultRadius * 2, defaultRadius * 2);
     this.radius = defaultRadius;
     this.mass = 1;
     //reset();
   }
   
   public Puck(int x, int y, int radius) {
-    super(name, 0, 0, radius, radius);
+    super(name, 0, 0, radius * 2, radius * 2);
     this.radius = radius;
     this.mass = 1;
     this.scored = false;
@@ -42,13 +42,13 @@ public class Puck extends Zone{
   public void draw(){
     
     if(!scored){
-      stroke( 255, 255, 255, 50);
+      //stroke( 255, 255, 255, 50);
       fill( 150, 50, 50, 255);
       ellipse(
         position.x, position.y,
         this.width, this.height);
     } else {
-      stroke( 255, 255, 255, 50 * (1.0 - animation_step));
+      //stroke( 255, 255, 255, 50 * (1.0 - animation_step));
       fill( 150, 50, 50, 255 * (1.0 - animation_step));
       ellipse(
         position.x, position.y,

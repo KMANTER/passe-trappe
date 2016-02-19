@@ -7,7 +7,7 @@ public class Physics extends Thread {
   public final int ticksPerSecond = 250;
   public final long nanosecondsPerSecond = 1000000000;
   public final float jiggle = 0.001;
-  public final float friction = 1; //0.998
+  public final float friction = 0.998;
   public double secondsPerTick;
   //public variables
   public boolean terminate = false;

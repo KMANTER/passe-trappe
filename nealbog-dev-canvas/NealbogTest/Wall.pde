@@ -14,9 +14,7 @@ public class Wall {
       (float) (b.y - a.y));
     this.parallel.normalize();
     
-    this.perpendicular = new PVector(
-      -parallel.y, 
-      parallel.x);
+    this.perpendicular = new PVector( -parallel.y, parallel.x);
     this.perpendicular.normalize();
   }
   

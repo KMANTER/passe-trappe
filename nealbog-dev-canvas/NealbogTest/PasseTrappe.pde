@@ -46,14 +46,17 @@ public class PasseTrappe extends MiniGame {
   public PVector middleBottomLeftCorner;
   public PVector middleBottomRightCorner;
   
+  PImage border = null;
+  PImage img;
   // Constructor
   PasseTrappe() {
   }
   
   void init() {
+    img = loadImage("assets/backgroundTexture.png");
     int level = this.HARD;
     frameRate( fps_limit);
-    strokeWeight(2);
+    //strokeWeight(2);
     fill(204, 102, 0);
     
     pucks = new Vector<Puck>();
@@ -81,16 +84,21 @@ public class PasseTrappe extends MiniGame {
     //create walls
     walls = new Vector<Wall>();
     walls.add( new Wall( topLeftCorner, topMiddleLeftCorner, this));
-    walls.add( new Wall( topMiddleLeftCorner, middleTopLeftCorner, this));
+    /*walls.add( new Wall( topMiddleLeftCorner, middleTopLeftCorner, this));
     walls.add( new Wall( middleTopLeftCorner, middleTopRightCorner, this));
     walls.add( new Wall( middleTopRightCorner, topMiddleRightCorner, this));
-    walls.add( new Wall( topMiddleRightCorner, topRightCorner, this));
+    walls.add( new Wall( topMiddleRightCorner, topRightCorner, this));*/
+    walls.add( new Wall( topMiddleLeftCorner, topRightCorner, this));
+    
     walls.add( new Wall( topRightCorner, bottomRightCorner, this));
     walls.add( new Wall( bottomRightCorner, bottomMiddleRightCorner, this));
-    walls.add( new Wall( bottomMiddleRightCorner, middleBottomRightCorner, this));
+    /*walls.add( new Wall( bottomMiddleRightCorner, middleBottomRightCorner, this));
     walls.add( new Wall( middleBottomRightCorner, middleBottomLeftCorner, this));
     walls.add( new Wall( middleBottomLeftCorner, bottomMiddleLeftCorner, this));
     walls.add( new Wall( bottomMiddleLeftCorner, bottomLeftCorner, this));
+    */
+    walls.add( new Wall( bottomMiddleRightCorner, bottomLeftCorner, this));
+    
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
     
     
@@ -101,12 +109,26 @@ public class PasseTrappe extends MiniGame {
     SMT.add( enemy);
     */
     
+    switch(level){
+      case EASY:
+        border = loadImage("assets/borderEasy.png");
+        break;
+      case MEDIUM:
+        border = loadImage("assets/borderMedium.png");
+        break;
+      case HARD:
+        border = loadImage("assets/borderHard.png");
+        break;
+      default:
+        break;
+    }
+    
+    
+    
     //start up the physics engine
     try{
       Thread.sleep( 0);
     } catch( InterruptedException e){}
-    
-    base(this.HARD);
     
     physics.start();
   }
@@ -145,35 +167,17 @@ public class PasseTrappe extends MiniGame {
   }
   
   void draw() {
-    
+    background(img);
+    image(border, 0, 0); // Image position
+    base(this.HARD);
   }
   
   void base(int level){
-    PImage img;
-    img = loadImage("assets/backgroundTexture.png");
-    //background(img);
-  
+    
     fill(0);
     // test elastic
     rect(marge, 0, 1, window_height); // Left
     rect(window_width - 1 - marge, 0, 1, window_height); // Right
-    
-    PImage border = null;
-    switch(level){
-      case EASY:
-        border = loadImage("assets/borderEasy.png");
-        break;
-      case MEDIUM:
-        border = loadImage("assets/borderMedium.png");
-        break;
-      case HARD:
-        border = loadImage("assets/borderHard.png");
-        break;
-      default:
-        break;
-    }
-    
-    image(border, 0, 0); // Image position
   }
   
   public Vector<Puck> getPucks(){
