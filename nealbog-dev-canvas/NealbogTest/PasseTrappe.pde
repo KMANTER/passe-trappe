@@ -12,7 +12,6 @@ public class PasseTrappe extends MiniGame {
   final int window_height = 700;
   public int window_halfWidth;
   public int window_halfHeight;
-  final int fps_limit = 60;
   final int puck_count = 10;
   final int thickness = 20;
   final int marge = 150;
@@ -32,15 +31,11 @@ public class PasseTrappe extends MiniGame {
   public PVector bottomLeftCorner;
   public PVector bottomRightCorner;
   
-  public PVector topMiddleLeftCorner;
-  public PVector topMiddleRightCorner;
-  public PVector bottomMiddleLeftCorner;
-  public PVector bottomMiddleRightCorner;
+  public PVector topMiddleCorner;
+  public PVector bottomMiddleCorner;
   
-  public PVector middleTopLeftCorner;
-  public PVector middleTopRightCorner;
-  public PVector middleBottomLeftCorner;
-  public PVector middleBottomRightCorner;
+  public PVector middleTopCorner;
+  public PVector middleBottomCorner;
   
   PImage border = null;
   PImage img = null;
@@ -52,7 +47,6 @@ public class PasseTrappe extends MiniGame {
   void init() {
     img = loadImage("assets/backgroundTexture.png");
     int level = this.HARD;
-    frameRate( fps_limit);
     //strokeWeight(2);
     fill(204, 102, 0);
     
@@ -64,41 +58,29 @@ public class PasseTrappe extends MiniGame {
     
     //create corners
     topLeftCorner = new PVector(this.marge, this.thickness);
-    topMiddleLeftCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.thickness);
-    topMiddleRightCorner = new PVector(this.window_halfWidth + (this.thickness / 2), this.thickness);
+    topMiddleCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.thickness);
     topRightCorner = new PVector( window_width - this.marge, this.thickness);
     
-    middleTopLeftCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight - (level/2));
-    middleTopRightCorner = new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight - (level/2));
-    middleBottomLeftCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight + (level/2));
-    middleBottomRightCorner = new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight + (level/2));
+    middleTopCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight - (level));
+    middleBottomCorner = new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight + (level));
     
     bottomLeftCorner = new PVector( this.marge, window_height - this.thickness);
-    bottomMiddleLeftCorner = new PVector(this.window_halfWidth - (this.thickness / 2), window_height - this.thickness);
-    bottomMiddleRightCorner = new PVector(this.window_halfWidth + (this.thickness / 2), window_height - this.thickness);
+    bottomMiddleCorner = new PVector(this.window_halfWidth + (this.thickness / 2), window_height - this.thickness);
     bottomRightCorner = new PVector( window_width - this.marge, window_height - this.thickness);
 
     //create walls
     walls = new Vector<Wall>();
-    walls.add( new Wall( topLeftCorner, topMiddleLeftCorner, this));
-    walls.add( new Wall( topMiddleLeftCorner, middleTopLeftCorner, this));
-    walls.add( new Wall( middleTopLeftCorner, middleTopRightCorner, this));
-    walls.add( new Wall( middleTopRightCorner, topMiddleRightCorner, this));
-    walls.add( new Wall( topMiddleRightCorner, topRightCorner, this));
-    /*walls.add( new Wall( topMiddleLeftCorner, topRightCorner, this));*/
-    
+    walls.add( new Wall( topLeftCorner, topMiddleCorner, this));
+    walls.add( new Wall( topMiddleCorner, middleTopCorner, this));
+    walls.add( new Wall( topMiddleCorner, topRightCorner, this));
     walls.add( new Wall( topRightCorner, bottomRightCorner, this));
-    walls.add( new Wall( bottomRightCorner, bottomMiddleRightCorner, this));
-    walls.add( new Wall( bottomMiddleRightCorner, middleBottomRightCorner, this));
-    walls.add( new Wall( middleBottomRightCorner, middleBottomLeftCorner, this));
-    walls.add( new Wall( middleBottomLeftCorner, bottomMiddleLeftCorner, this));
-    walls.add( new Wall( bottomMiddleLeftCorner, bottomLeftCorner, this));
-
-    /*walls.add( new Wall( bottomMiddleRightCorner, bottomLeftCorner, this));*/
     
+    walls.add( new Wall( bottomRightCorner, bottomMiddleCorner, this));
+    walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
+    walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
     
-    
+
     /*create nets
     player = new Net( "Player", 0, -window_halfHeight, 50, 400);
     enemy = new Net( "Enemy", -window_width, -window_halfHeight, 50, 400);
@@ -162,6 +144,10 @@ public class PasseTrappe extends MiniGame {
   
   IState update(float delta) {
     return keepOn();
+  }
+  
+  void stop(){
+    physics.terminate = true;
   }
   
   void draw() {
