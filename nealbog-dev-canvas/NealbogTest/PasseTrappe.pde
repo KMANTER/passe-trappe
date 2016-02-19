@@ -16,7 +16,7 @@ public class PasseTrappe extends MiniGame {
   final int puck_count = 10;
   final int thickness = 20;
   final int marge = 150;
-  final int puckRadius = 75;
+  final int puckRadius = 30;
   public static final int EASY = 140;
   public static final int MEDIUM = 120;
   public static final int HARD = 100;
@@ -140,10 +140,11 @@ public class PasseTrappe extends MiniGame {
       Puck p;
       int mod = i % 2;
       if( mod == 0){// Left Zone
-        p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
-      }else{// Right Zone
-        p = new Puck( this.window_width - (this.marge + this.puckRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.puckRadius)), this.puckRadius);
-      }
+       p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
+     }else{// Right Zone
+       p = new Puck( this.window_width - (this.marge + this.puckRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.puckRadius)), this.puckRadius);
+     }
+      println(i + " : "+p.x+"/"+p.y);
       pucks.add(p);
     }
     

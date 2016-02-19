@@ -8,7 +8,7 @@ public class Puck extends Zone{
   final static String name = "Puck";
   final static float animStepsPerDraw = 0.15;
   final static float maxSpeed = 10;
-  final static int defaultRadius = 30;
+  final static int defaultRadius = 90;
   final static float initialSpeedBound = 1;
   //fields
   public float radius;
