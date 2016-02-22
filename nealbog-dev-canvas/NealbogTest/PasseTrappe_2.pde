@@ -42,13 +42,12 @@ public class PasseTrappe_2 extends PasseTrappe {
   PasseTrappe_2() {
   }
   
-  PasseTrappe_2(int l, PImage pi) {
+  PasseTrappe_2(int l, String pi) {
     this.level = l;
-    this.img = pi;
+    this.img = loadImage(pi);
   }
   
   void init() {
-    img = loadImage("assets/backgroundTexture.png");
     //strokeWeight(2);
     fill(204, 102, 0);
     
@@ -81,14 +80,6 @@ public class PasseTrappe_2 extends PasseTrappe {
     walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
     walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
-    
-
-    /*create nets
-    player = new Net( "Player", 0, -window_halfHeight, 50, 400);
-    enemy = new Net( "Enemy", -window_width, -window_halfHeight, 50, 400);
-    SMT.add( player);
-    SMT.add( enemy);
-    */
     
     //start up the physics engine
     try{

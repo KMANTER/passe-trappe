@@ -44,7 +44,7 @@ public class PasseTrappeIndex extends MiniGame {
     int btn_height = 80;
     
     level_easy = new ButtonZone("BtnLevelEasy",(window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Easy");
-    level_medium = new ButtonZone("BtnLevelMedim", (window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Medium");
+    level_medium = new ButtonZone("BtnLevelMedium", (window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Medium");
     level_hard = new ButtonZone("BtnLevelHard", (window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height, "Hard");
     
     one_player = new ButtonZone("BtnOnePlayer",(window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "One Player");
@@ -96,13 +96,23 @@ public class PasseTrappeIndex extends MiniGame {
     
   }
   
-  void pressBtnTwoPlayer(Zone z, Touch t){
+  void pressBtnTwoPlayer(vialab.SMT.ButtonZone zone, vialab.SMT.Touch touch){
   
   }
   
+  void pressBtnLevelEasy(){
+    fill(0);
+  }
+  
+  void pressBtnLevelMedium(){
+    fill(0);
+  }
+  
+  void pressBtnLevelHard(){
+    fill(0);
+  }
+  
   void clearLevelSelection(){
-     level_easy.removePickColor();
-     level_medium.removePickColor();
-     level_hard.removePickColor();
+     
   }
 }

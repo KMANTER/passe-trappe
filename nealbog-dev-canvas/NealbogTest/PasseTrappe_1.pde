@@ -11,13 +11,12 @@ public class PasseTrappe_1 extends PasseTrappe {
   PasseTrappe_1() {
   }
   
-  PasseTrappe_1(int l, PImage pi) {
+  PasseTrappe_1(int l, String pi) {
     this.level = l;
-    this.img = pi;
+    this.img = loadImage(pi);
   }
   
   void init() {
-    img = loadImage("assets/backgroundTexture.png");
     int level = 100;
     //strokeWeight(2);
     fill(204, 102, 0);
