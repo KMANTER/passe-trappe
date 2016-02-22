@@ -4,7 +4,7 @@ import java.util.Vector;
 //SMT library imports
 import vialab.SMT.*;
 
-public class PasseTrappe_2 extends MiniGame {
+public class PasseTrappe_2 extends PasseTrappe {
   
   //constants
   boolean window_fullscreen = false;
@@ -16,9 +16,7 @@ public class PasseTrappe_2 extends MiniGame {
   final int thickness = 20;
   final int marge = 150;
   final int puckRadius = 30;
-  public static final int EASY = 140;
-  public static final int MEDIUM = 120;
-  public static final int HARD = 100;
+  int level;
   
   //main variables
   public Vector<Puck> pucks;
@@ -37,16 +35,20 @@ public class PasseTrappe_2 extends MiniGame {
   public PVector middleTopCorner;
   public PVector middleBottomCorner;
   
-  PImage border = null;
-  PImage img = null;
+  PImage border = loadImage("assets/borderEasy.png");
+  PImage img = loadImage("assets/backgroundTexture.png");
   
   // Constructor
   PasseTrappe_2() {
   }
   
+  PasseTrappe_2(int l, PImage pi) {
+    this.level = l;
+    this.img = pi;
+  }
+  
   void init() {
     img = loadImage("assets/backgroundTexture.png");
-    int level = this.HARD;
     //strokeWeight(2);
     fill(204, 102, 0);
     
@@ -87,22 +89,6 @@ public class PasseTrappe_2 extends MiniGame {
     SMT.add( player);
     SMT.add( enemy);
     */
-    
-    switch(level){
-      case EASY:
-        border = loadImage("assets/borderEasy.png");
-        break;
-      case MEDIUM:
-        border = loadImage("assets/borderMedium.png");
-        break;
-      case HARD:
-        border = loadImage("assets/borderHard.png");
-        break;
-      default:
-        break;
-    }
-    
-    
     
     //start up the physics engine
     try{

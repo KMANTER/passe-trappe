@@ -4,54 +4,21 @@ import java.util.Vector;
 //SMT library imports
 import vialab.SMT.*;
 
-public class PasseTrappe_1 extends MiniGame {
+public class PasseTrappe_1 extends PasseTrappe {
   
-  //constants
-  boolean window_fullscreen = false;
-  final int window_width = 1200;
-  final int window_height = 700;
-  public int window_halfWidth;
-  public int window_halfHeight;
-  final int puck_count = 10;
-  final int thickness = 20;
-  final int marge = 150;
-  final int puckRadius = 30;
-  int level; 
-  public static final int EASY = 140;
-  public static final int MEDIUM = 120;
-  public static final int HARD = 100;
-  
-  //main variables
-  public Vector<Puck> pucks;
-  public Vector<Wall> walls;
-  Physics physics = new Physics(this);
-  
-  //corners
-  public PVector topLeftCorner;
-  public PVector topRightCorner;
-  public PVector bottomLeftCorner;
-  public PVector bottomRightCorner;
-  
-  public PVector topMiddleCorner;
-  public PVector bottomMiddleCorner;
-  
-  public PVector middleTopCorner;
-  public PVector middleBottomCorner;
-  
-  PImage border = null;
-  PImage img = null;
   
   // Constructor
   PasseTrappe_1() {
   }
   
-  PasseTrappe_1(int l) {
+  PasseTrappe_1(int l, PImage pi) {
     this.level = l;
+    this.img = pi;
   }
   
   void init() {
     img = loadImage("assets/backgroundTexture.png");
-    int level = this.HARD;
+    int level = 100;
     //strokeWeight(2);
     fill(204, 102, 0);
     
@@ -92,20 +59,6 @@ public class PasseTrappe_1 extends MiniGame {
     SMT.add( player);
     SMT.add( enemy);
     */
-    
-    switch(level){
-      case EASY:
-        border = loadImage("assets/borderEasy.png");
-        break;
-      case MEDIUM:
-        border = loadImage("assets/borderMedium.png");
-        break;
-      case HARD:
-        border = loadImage("assets/borderHard.png");
-        break;
-      default:
-        break;
-    }
     
     
     
@@ -161,35 +114,4 @@ public class PasseTrappe_1 extends MiniGame {
     elastic();
   }
   
-  void elastic(){
-    fill(0);
-    // test elastic
-    rect(marge, 0, 1, window_height); // Left
-    rect(window_width - 1 - marge, 0, 1, window_height); // Right
-  }
-  
-  public Vector<Puck> getPucks(){
-    return this.pucks;
-  }
-  
-  public Vector<Wall> getWalls(){
-    return this.walls;
-  }
-  
-  //functions
-  //projection of one onto other
-  public PVector projection( PVector one, PVector other){
-    PVector result = new PVector( other.x, other.y);
-    result.normalize();
-    result.mult( one.dot( result));
-    return result;
-  }
-  
-  public PVector scale( PVector vector, double scalar){
-    PVector result = new PVector( vector.x, vector.y);
-    result.x *= scalar;
-    result.y *= scalar;
-    return result;
-  }
-
 }
