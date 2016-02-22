@@ -4,7 +4,7 @@ import java.util.Vector;
 //SMT library imports
 import vialab.SMT.*;
 
-public class PasseTrappe extends MiniGame {
+public class PasseTrappe_2 extends MiniGame {
   
   //constants
   boolean window_fullscreen = false;
@@ -41,7 +41,7 @@ public class PasseTrappe extends MiniGame {
   PImage img = null;
   
   // Constructor
-  PasseTrappe() {
+  PasseTrappe_2() {
   }
   
   void init() {
@@ -188,12 +188,3 @@ public class PasseTrappe extends MiniGame {
   }
 
 }
-
-
-
-
-
-
-
-
-
