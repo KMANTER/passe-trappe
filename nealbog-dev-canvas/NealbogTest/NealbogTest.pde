@@ -1,7 +1,7 @@
-final int windowWidth = 1200;
+final int windowWidth = 1280;
 final int windowHeight = 700;
 
-Game game = new Game();
+Game game;
 
 void registerMiniGames() {
   game.registerMiniGame(new PasseTrappe_2());
@@ -9,12 +9,13 @@ void registerMiniGames() {
 
 // Subscribe your mini-game here:
 void setup() {
-  registerMiniGames();
   size(windowWidth, windowHeight, SMT.RENDERER);
   SMT.init(this, TouchSource.AUTOMATIC);
+  game = new Game();
+  registerMiniGames();
   frameRate(60);
-  //game.startCalibration();
-  game.start();
+  game.startCalibration();
+  //game.start();
 }
 
 void draw() {

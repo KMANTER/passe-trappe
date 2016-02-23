@@ -23,7 +23,7 @@ public class InputHandler {
    */
   public InputHandler(int windowWidth, int windowHeight) { 
     touches = new ArrayList<Touch>();
-    calibration = new Calibration(1280, 700);
+    calibration = new Calibration(width, height);
   }
   
   /*

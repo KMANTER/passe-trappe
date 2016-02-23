@@ -113,8 +113,8 @@ public class PasseTrappe_2 extends PasseTrappe {
   }
   
   void draw() {
-    background(img);
-    image(border, 0, 0); // Image position
+    image(img, 0, 0, width, height);
+    image(border, 0, 0, width, height); // Image position
     elastic();
     checkEndGame2P();
   }
