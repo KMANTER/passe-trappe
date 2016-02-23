@@ -31,7 +31,6 @@ abstract class PasseTrappe extends MiniGame {
   PImage border = null;
   PImage img = null;
   
-  
   void supplyPuck(){
     //Positionning
     for(int i=0; i < 10; i++){
@@ -84,7 +83,6 @@ abstract class PasseTrappe extends MiniGame {
     result.y *= scalar;
     return result;
   }
- 
   
   public PVector getmiddleTopCorner(){
      return new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight - (this.level/2));
@@ -118,7 +116,18 @@ abstract class PasseTrappe extends MiniGame {
     }
   }
 
-  public void checkEndGame1P(){
+  public void checkEndGame1P(int seconds_left){
+    int cptleft = 0;
+    if( seconds_left > 0){
+      for(Puck p : this.getPucks()){
+        if(p.position.x < this.window_halfWidth - (this.thickness / 2))
+          cptleft++;
+      }
+      if(cptleft == 10){
+        println("WINNER");
+      }     
+    }else
+      println("FAILURE");
     
   }
 }
