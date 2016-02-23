@@ -10,7 +10,7 @@ public class PasseTrappeIndex extends MiniGame {
   final int window_height = 700;
   public static final int EASY = 140;
   public static final int MEDIUM = 120;
-  public static final int HARD = 100;
+  public static final int HARD = 90;
   
   PImage border = null;
   PImage img = null;
