@@ -67,28 +67,7 @@ public class PasseTrappe_1 extends PasseTrappe {
     } catch( InterruptedException e){}
     
     physics.start();
-  }
   
-  void supplyPuck(){
-    //Positionning
-    for(int i=0; i < 10; i++){
-      print(i+"->");
-      Puck p;
-      int mod = i % 2;
-      if( mod == 0){// Left Zone
-        p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
-      }else{// Right Zone
-        p = new Puck( this.window_width - (this.marge + this.puckRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.puckRadius)), this.puckRadius);
-      }
-      println(i + " : "+p.x+"/"+p.y);
-      pucks.add(p);
-    }
-    
-    for(Puck p : pucks){
-      SMT.add(p);
-    }
-    
-    println("nb pucks" + pucks.size());
   }
 
   void handleInput(InputHandler inputHandler) {

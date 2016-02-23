@@ -3,8 +3,8 @@ abstract class PasseTrappe extends MiniGame {
   boolean window_fullscreen = false;
   final int window_width = 1200;
   final int window_height = 700;
-  public int window_halfWidth;
-  public int window_halfHeight;
+  public int window_halfWidth = window_width / 2;
+  public int window_halfHeight = window_height / 2;
   final int puck_count = 10;
   final int thickness = 20;
   final int marge = 150;
@@ -30,6 +30,29 @@ abstract class PasseTrappe extends MiniGame {
   
   PImage border = null;
   PImage img = null;
+  
+  
+  void supplyPuck(){
+    //Positionning
+    for(int i=0; i < 10; i++){
+      print(i+"->");
+      Puck p;
+      int mod = i % 2;
+      if( mod == 0){// Left Zone
+        p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
+      }else{// Right Zone
+        p = new Puck( this.window_width - (this.marge + this.puckRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.puckRadius)), this.puckRadius);
+      }
+      println(i + " : "+p.x+"/"+p.y);
+      pucks.add(p);
+    }
+    
+    for(Puck p : pucks){
+      SMT.add(p);
+    }
+    
+    println("nb pucks" + pucks.size());
+  }
   
   void elastic(){
     fill(0);
@@ -78,5 +101,24 @@ abstract class PasseTrappe extends MiniGame {
   public PVector getmiddleBottomCornerR(){
      return new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight + (this.level/2));
   }
+  
+  public void checkEndGame2P(){
+    int cptleft = 0;
+    int cptright = 0;
+    for(Puck p : this.getPucks()){
+      if(p.position.x < this.window_halfWidth - (this.thickness / 2))
+        cptleft++;
+      else if( p.position.x > this.window_halfWidth + (this.thickness / 2))
+        cptright++;
+    }
+    if(cptleft == 10){
+      println("RIGHT WINNER");
+    }else if(cptright == 10){
+      println("LEFT WINNER");
+    }
+  }
 
+  public void checkEndGame1P(){
+    
+  }
 }

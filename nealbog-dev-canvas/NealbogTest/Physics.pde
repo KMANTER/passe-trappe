@@ -7,7 +7,7 @@ public class Physics extends Thread {
   public final int ticksPerSecond = 250;
   public final long nanosecondsPerSecond = 1000000000;
   public final float jiggle = 0.001;
-  public final float friction = 0.998;
+  public final float friction = 0.989;
   public double secondsPerTick;
   //public variables
   public boolean terminate = false;
@@ -135,17 +135,36 @@ public class Physics extends Thread {
     }
     //println();
   }
-/*
-  public boolean handleNetCollision( Puck puck, Net net){
-    if( puck.scored) return false;
-    if( net.touches( puck)){
-      puck.scored = true;
-      puck.animation_step = 0;
-      return true;
-    }
-    return false;
+
+  public void handleElasticCollision(Puck puck, Touch t, int force){
+      PVector touchPosition = new PVector(t.x, t.y);
+      PVector difference = PVector.sub(touchPosition, puck.position);
+      float distance = difference.mag() - puck.radius - force;
+      //println( String.format("%f %f", difference.x, difference.y));
+      if( distance < 0){
+        difference.normalize();
+        
+        //push the pucks apart
+        difference.mult( distance / 2 - jiggle);
+        puck.position.add( difference);
+        
+        //bounce the pucks off each other
+        //mass calculations
+        double totalMass = puck.mass + 100;
+        double puck_massTerm1 = ( puck.mass - 100) / totalMass;
+        double puck_massTerm2 = ( 100 * 2.0) / totalMass;
+
+        //velocity calculations
+        // these velocities are relative to the direction of the collision
+        PVector puck_v = game.projection( puck.velocity, difference);
+        puck.velocity.sub(puck_v);
+        
+        PVector puck_force = game.scale( puck_v, puck_massTerm1);
+        puck_force.add( game.scale(touchPosition, puck_massTerm2));
+        puck.velocity.add( puck_force);
+      }
   }
-  
+/*  
   public void handleNetCollisions( Puck puck){
     //check player's net
     if( handleNetCollision( puck, game.getPlayer())){

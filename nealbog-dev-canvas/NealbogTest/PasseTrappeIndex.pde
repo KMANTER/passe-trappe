@@ -1,6 +1,6 @@
 //imports
 import java.awt.TextArea;
-import java.awt.Button;
+import java.util.ArrayList;
 
 public class PasseTrappeIndex extends MiniGame {
   
@@ -15,18 +15,16 @@ public class PasseTrappeIndex extends MiniGame {
   PImage border = null;
   PImage img = null;
   
-  ArrayList<Button> buttons;
-  
-  Button one_player;
-  Button two_player;
-  
   Button level_easy;
   Button level_medium;
   Button level_hard;
-  
+  Button one_player;
+  Button two_player;
+    
   int btn_width = 120;
   int btn_height = 80;
-    
+  ArrayList<Button> buttons = new ArrayList<Button>();
+  
   TextArea title;
   
   int level;
@@ -36,36 +34,24 @@ public class PasseTrappeIndex extends MiniGame {
   
   // Constructor
   PasseTrappeIndex() {
-    buttons = new ArrayList<Button>();
   }
   
   void init() {
     img = loadImage("assets/backgroundTexture.png");
     border = loadImage("assets/borderEasy.png");
-        
-    //Create buttons
-    //ButtonZone( name, x, y, width, height, text )
     
-    level_easy = new Button("BtnLevelEasy",(window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Easy");
-    level_medium = new Button("BtnLevelMedium", (window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Medium");
-    level_hard = new Button("BtnLevelHard", (window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height, "Hard");
+    // Create buttons
+    this.level_easy = new Button(new PVector((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height)));
+    this.level_medium = new Button(new PVector((window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height)));
+    this.level_hard = new Button(new PVector((window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height)));
+    this.one_player = new Button(new PVector((window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height)));
+    this.two_player = new Button(new PVector((window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height)));
     
-    one_player = new Button("BtnOnePlayer",(window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "One Player");
-    two_player = new Button("BtnTwoPlayer",(window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "Two Player");
-    
-    SMT.add(one_player);
-    SMT.add(two_player);
-    SMT.add(level_easy);
-    SMT.add(level_medium);
-    SMT.add(level_hard);
-    
-    buttons.add(one_player);
-    buttons.add(two_player);
     buttons.add(level_easy);
     buttons.add(level_medium);
     buttons.add(level_hard);
-    
-    println("Buttons : " + buttons.size());
+    buttons.add(one_player);
+    buttons.add(two_player);
     
     this.clearLevelSelection();
     
@@ -75,32 +61,31 @@ public class PasseTrappeIndex extends MiniGame {
     if (inputHandler.getTouches().length == 0) return;
     Touch t = inputHandler.getTouches()[0];
     Button click = null;
-    for(Button bz : buttons){
-      click = this.isOver(t, bz);
-      if(click != null) break;
-    }
-    if(click != null){
-      if(click == level_easy){
-        this.level = this.EASY;
-        this.path_img = "assets/borderEasy.png";
-        fill(0);
-      }else if(click == level_medium){
-        this.level = this.MEDIUM;
-        this.path_img = "assets/borderMedium.png";
-        fill(50);
-      }else if(click == level_hard){
-        this.level = this.HARD;
-        this.path_img = "assets/borderHard.png";
-        fill(100);
-      }else if(click == one_player){
-        game.registerMiniGame(new PasseTrappe_1());
-        choose = true;  
-      }else if(click == two_player){
-        //game = new PasseTrappe(this.level, this.path_img);
-        game.registerMiniGame(new PasseTrappe_2());
-        choose = true;
+    for(Button b : buttons){ // Number of button
+      click = this.isOver(t, b);
+      if(click != null){
+        if(click == level_easy){
+          this.level = this.EASY;
+          this.path_img = "assets/borderEasy.png";
+          
+        }else if(click == level_medium){
+          this.level = this.MEDIUM;
+          this.path_img = "assets/borderMedium.png";
+          fill(50);
+        }else if(click == level_hard){
+          this.level = this.HARD;
+          this.path_img = "assets/borderHard.png";
+          fill(100);
+        }else if(click == one_player){
+          //game.registerMiniGame(new PasseTrappe_1());
+        }else if(click == two_player){
+          //game = new PasseTrappe(this.level, this.path_img);
+          //game.registerMiniGame(new PasseTrappe_2());
+        }
       }
     }
+    
+    
   }
   
   IState update(float delta) {
@@ -115,17 +100,27 @@ public class PasseTrappeIndex extends MiniGame {
     textSize(32);
     textAlign(CENTER);
     text( "Passe Trappe", window_width/2, 100);
-    if(choose){
-      game.handleInput();
-      game.update();
-      game.draw(); 
-    }
+    
+    
+    rect(level_easy.getPosition().x, level_easy.getPosition().y, btn_width, btn_height); // easy
+    rect(level_medium.getPosition().x, level_medium.getPosition().y, btn_width, btn_height); // medium
+    rect(level_hard.getPosition().x, level_hard.getPosition().y, btn_width, btn_height); // hard
+    
+    rect(one_player.getPosition().x, one_player.getPosition().y, btn_width, btn_height); // one player
+    rect(two_player.getPosition().x, two_player.getPosition().y, btn_width, btn_height); // two player
+    
+    /*
+    rect((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height); // easy
+    rect((window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height); // medium
+    rect((window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height); // hard
+    
+    rect((window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height); // one player
+    rect((window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height); // two player
+    */
   }
   
-  Button isOver(Touch t, ButtonZone btn){
-    println("t.x:" + t.getX() + "/ t.y:"+t.getY());
-    println("btn.x:" + btn.getX() + "/ btn.y:"+btn.getY());
-    if(t.getX() > btn.getX() && t.getX() < btn.getX() + btn_width && t.getY() > btn.getY() && t.getY() < btn.getY() + btn_height){
+  Button isOver(Touch t, Button btn){
+    if(t.getX() > btn.getPosition().x && t.getX() < btn.getPosition().x + btn_width && t.getY() > btn.getPosition().y && t.getY() < btn.getPosition().y + btn_height){
       return btn;
     }
     return null;
