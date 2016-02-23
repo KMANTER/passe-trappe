@@ -71,20 +71,16 @@ public class Puck extends Zone{
   
   public void touch(){
     this.current = this;
+    println("palet touché : "+this);
+    vialab.SMT.Touch touch = getActiveTouch(0);
+    assert( touch != null);
+    float dx = touch.x - position.x;
+    float dy = touch.y - position.y;
+    velocity.x = dx * 20;
+    velocity.y = dy * 20;
   }
   
   public void update(Touch[] touches){
-    if(touches.length == 0) return ;
-
-    Touch touch = touches[0];
-    assert( touch != null);
-
-    float dx = touch.x - position.x;
-    float dy = touch.y - position.y;
-
-    velocity.x = dx * 2;
-    velocity.y = dy * 2;
-    
   }
 
   /*utility functions
