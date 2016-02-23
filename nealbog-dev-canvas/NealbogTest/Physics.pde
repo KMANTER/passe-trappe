@@ -37,8 +37,9 @@ public class Physics extends Thread {
 
   public void tick(){
     updateTime();
+    
     for( Puck puck : game.getPucks()){
-      if( puck.scored) continue;
+      //if( puck.scored) continue;
       /*if( puck.velocity.mag() > Puck.maxSpeed){
         puck.velocity.normalize();
         puck.velocity.mult( Puck.maxSpeed);
@@ -109,20 +110,27 @@ public class Physics extends Thread {
     if( puck.scored) return;
     for( Wall wall : game.getWalls()){
       //get puck to wall distance
-      PVector distanceVector = wall.distanceVector(puck.position);
-      float distance = distanceVector.mag();
-      //print( String.format( "%f %f ", distanceVector.x, distanceVector.y));
-      //print( String.format( "%f ", distance));
-      if( distance < puck.radius){
-        distanceVector.normalize();
-        //push the puck away from the wall
-        PVector push = PVector.mult(
-          distanceVector, puck.radius - distance + jiggle);
-        puck.position.add( push);
-        //bounce the puck off the wall
-        PVector force = game.projection( puck.velocity, distanceVector);
-        force.mult( -2);
-        puck.velocity.add( force);
+      PVector posPuck= puck.position;
+      PVector middleTopCorner = game.getmiddleTopCorner();
+      PVector middleBottomCorner = game.getmiddleBottomCorner();
+
+      if( ( posPuck.y > middleBottomCorner.y || posPuck.y < middleTopCorner.y) || (posPuck.x< 550 || posPuck.x >650) ){ 
+
+        PVector distanceVector = wall.distanceVector(puck.position);
+        float distance = distanceVector.mag();
+        //print( String.format( "%f %f ", distanceVector.x, distanceVector.y));
+        //print( String.format( "%f ", distance));
+        if( distance < puck.radius){
+          distanceVector.normalize();
+          //push the puck away from the wall
+          PVector push = PVector.mult(
+            distanceVector, puck.radius - distance + jiggle);
+          puck.position.add( push);
+          //bounce the puck off the wall
+          PVector force = game.projection( puck.velocity, distanceVector);
+          force.mult( -2);
+          puck.velocity.add( force);
+        }
       }
     }
     //println();

@@ -4,7 +4,7 @@ final int windowHeight = 700;
 Game game = new Game();
 
 void registerMiniGames() {
-  game.registerMiniGame(new PasseTrappeIndex());
+  game.registerMiniGame(new PasseTrappe_2());
 }
 
 // Subscribe your mini-game here:

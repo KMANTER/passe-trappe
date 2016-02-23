@@ -6,21 +6,10 @@ import vialab.SMT.*;
 
 public class PasseTrappe_2 extends PasseTrappe {
   
-  //constants
-  boolean window_fullscreen = false;
-  final int window_width = 1200;
-  final int window_height = 700;
-  public int window_halfWidth;
-  public int window_halfHeight;
-  final int puck_count = 10;
-  final int thickness = 20;
-  final int marge = 150;
-  final int puckRadius = 30;
-  int level;
+
   
   //main variables
-  public Vector<Puck> pucks;
-  public Vector<Wall> walls;
+
   Physics physics = new Physics(this);
   
   //corners
@@ -31,19 +20,23 @@ public class PasseTrappe_2 extends PasseTrappe {
   
   public PVector topMiddleCorner;
   public PVector bottomMiddleCorner;
+
   
-  public PVector middleTopCorner;
-  public PVector middleBottomCorner;
+  public PVector middleTopCornerL;
+  public PVector middleBottomCornerL;
+  public PVector middleTopCornerR;
+  public PVector middleBottomCornerR;
   
-  PImage border = loadImage("assets/borderEasy.png");
+  PImage border = loadImage("assets/borderHard.png");
   PImage img = loadImage("assets/backgroundTexture.png");
   
   // Constructor
   PasseTrappe_2() {
+    this.level = 100;
   }
   
   PasseTrappe_2(int l, String pi) {
-    this.level = l;
+    this.level = 140;
     this.img = loadImage(pi);
   }
   
@@ -51,33 +44,46 @@ public class PasseTrappe_2 extends PasseTrappe {
     //strokeWeight(2);
     fill(204, 102, 0);
     
-    pucks = new Vector<Puck>();
     this.supplyPuck();
      
     this.window_halfWidth = this.window_width / 2;
     this.window_halfHeight = this.window_height / 2;
     
     //create corners
+    println("level:"+this.level);
     topLeftCorner = new PVector(this.marge, this.thickness);
+    println("topLeftCorner = x:"+this.marge+" , y:"+this.thickness);
     topMiddleCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.thickness);
+    println("topMiddleCorner = x:"+(this.window_halfWidth + (this.thickness / 2))+" , y:"+this.thickness);
+
     topRightCorner = new PVector( window_width - this.marge, this.thickness);
+    println("topRightCorner = x:"+(window_width - this.marge)+" , y:"+this.thickness);
+
+    middleTopCornerL = getmiddleTopCorner();
+    println("middleTopCorner = x:"+middleTopCornerL.x+" , y:"+middleTopCornerL.y);
+    middleBottomCornerL = getmiddleBottomCorner(); 
+    println("middleBottomCorner = x:"+middleBottomCornerL.x+" , y:"+middleBottomCornerL.y);
     
-    middleTopCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight - (level));
-    middleBottomCorner = new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight + (level));
+    middleTopCornerR = getmiddleTopCornerR();
+    println("middleTopCorner = x:"+middleTopCornerR.x+" , y:"+middleTopCornerR.y);
+    middleBottomCornerR = getmiddleBottomCornerR(); 
+    println("middleBottomCorner = x:"+middleBottomCornerR.x+" , y:"+middleBottomCornerR.y);
     
     bottomLeftCorner = new PVector( this.marge, window_height - this.thickness);
+    println("bottomLeftCorner = x:"+this.marge+" , y:"+(window_height - this.thickness));
     bottomMiddleCorner = new PVector(this.window_halfWidth + (this.thickness / 2), window_height - this.thickness);
+    println("bottomMiddleCorner = x:"+(this.window_halfWidth + (this.thickness / 2))+" , y:"+(window_height - this.thickness));
     bottomRightCorner = new PVector( window_width - this.marge, window_height - this.thickness);
+    println("bottomRightCorner = x:"+(window_width - this.marge)+" , y:"+(window_height - this.thickness));
 
     //create walls
-    walls = new Vector<Wall>();
     walls.add( new Wall( topLeftCorner, topMiddleCorner, this));
-    walls.add( new Wall( topMiddleCorner, middleTopCorner, this));
+    walls.add( new Wall( topMiddleCorner, middleTopCornerL, this));
     walls.add( new Wall( topMiddleCorner, topRightCorner, this));
     walls.add( new Wall( topRightCorner, bottomRightCorner, this));
     
     walls.add( new Wall( bottomRightCorner, bottomMiddleCorner, this));
-    walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
+    walls.add( new Wall( bottomMiddleCorner, middleBottomCornerL, this));
     walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
     
@@ -133,35 +139,5 @@ public class PasseTrappe_2 extends PasseTrappe {
     elastic();
   }
   
-  void elastic(){
-    fill(0);
-    // test elastic
-    rect(marge, 0, 1, window_height); // Left
-    rect(window_width - 1 - marge, 0, 1, window_height); // Right
-  }
-  
-  public Vector<Puck> getPucks(){
-    return this.pucks;
-  }
-  
-  public Vector<Wall> getWalls(){
-    return this.walls;
-  }
-  
-  //functions
-  //projection of one onto other
-  public PVector projection( PVector one, PVector other){
-    PVector result = new PVector( other.x, other.y);
-    result.normalize();
-    result.mult( one.dot( result));
-    return result;
-  }
-  
-  public PVector scale( PVector vector, double scalar){
-    PVector result = new PVector( vector.x, vector.y);
-    result.x *= scalar;
-    result.y *= scalar;
-    return result;
-  }
 
 }

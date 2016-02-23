@@ -12,8 +12,8 @@ abstract class PasseTrappe extends MiniGame {
   int level; 
   
   //main variables
-  public Vector<Puck> pucks;
-  public Vector<Wall> walls;
+  public Vector<Puck> pucks = new Vector<Puck>();
+  public Vector<Wall> walls= new Vector<Wall>();
   Physics physics = new Physics(this);
   
   //corners
@@ -60,6 +60,23 @@ abstract class PasseTrappe extends MiniGame {
     result.x *= scalar;
     result.y *= scalar;
     return result;
+  }
+ 
+  
+  public PVector getmiddleTopCorner(){
+     return new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight - (this.level/2));
+  }
+  
+  public PVector getmiddleBottomCorner(){
+     return new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight + (this.level/2));
+  }
+  
+    public PVector getmiddleTopCornerR(){
+     return new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight - (this.level/2));
+  }
+  
+  public PVector getmiddleBottomCornerR(){
+     return new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight + (this.level/2));
   }
 
 }
