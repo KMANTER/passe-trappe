@@ -1,8 +1,6 @@
 //imports
 import java.awt.TextArea;
-
-//SMT library imports
-import vialab.SMT.*;
+import java.awt.Button;
 
 public class PasseTrappeIndex extends MiniGame {
   
@@ -17,21 +15,28 @@ public class PasseTrappeIndex extends MiniGame {
   PImage border = null;
   PImage img = null;
   
-  ButtonZone one_player;
-  ButtonZone two_player;
+  ArrayList<Button> buttons;
   
-  ButtonZone level_easy;
-  ButtonZone level_medium;
-  ButtonZone level_hard;
+  Button one_player;
+  Button two_player;
   
+  Button level_easy;
+  Button level_medium;
+  Button level_hard;
+  
+  int btn_width = 120;
+  int btn_height = 80;
+    
   TextArea title;
   
   int level;
-  Game choice;
+  String path_img;
+  boolean choose = false;
+  Game game = null;
   
   // Constructor
   PasseTrappeIndex() {
-    
+    buttons = new ArrayList<Button>();
   }
   
   void init() {
@@ -40,15 +45,13 @@ public class PasseTrappeIndex extends MiniGame {
         
     //Create buttons
     //ButtonZone( name, x, y, width, height, text )
-    int btn_width = 120;
-    int btn_height = 80;
     
-    level_easy = new ButtonZone("BtnLevelEasy",(window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Easy");
-    level_medium = new ButtonZone("BtnLevelMedium", (window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Medium");
-    level_hard = new ButtonZone("BtnLevelHard", (window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height, "Hard");
+    level_easy = new Button("BtnLevelEasy",(window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Easy");
+    level_medium = new Button("BtnLevelMedium", (window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Medium");
+    level_hard = new Button("BtnLevelHard", (window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height, "Hard");
     
-    one_player = new ButtonZone("BtnOnePlayer",(window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "One Player");
-    two_player = new ButtonZone("BtnTwoPlayer",(window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "Two Player");
+    one_player = new Button("BtnOnePlayer",(window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "One Player");
+    two_player = new Button("BtnTwoPlayer",(window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "Two Player");
     
     SMT.add(one_player);
     SMT.add(two_player);
@@ -56,12 +59,48 @@ public class PasseTrappeIndex extends MiniGame {
     SMT.add(level_medium);
     SMT.add(level_hard);
     
+    buttons.add(one_player);
+    buttons.add(two_player);
+    buttons.add(level_easy);
+    buttons.add(level_medium);
+    buttons.add(level_hard);
+    
+    println("Buttons : " + buttons.size());
+    
     this.clearLevelSelection();
     
   }
 
   void handleInput(InputHandler inputHandler) {
-    
+    if (inputHandler.getTouches().length == 0) return;
+    Touch t = inputHandler.getTouches()[0];
+    Button click = null;
+    for(Button bz : buttons){
+      click = this.isOver(t, bz);
+      if(click != null) break;
+    }
+    if(click != null){
+      if(click == level_easy){
+        this.level = this.EASY;
+        this.path_img = "assets/borderEasy.png";
+        fill(0);
+      }else if(click == level_medium){
+        this.level = this.MEDIUM;
+        this.path_img = "assets/borderMedium.png";
+        fill(50);
+      }else if(click == level_hard){
+        this.level = this.HARD;
+        this.path_img = "assets/borderHard.png";
+        fill(100);
+      }else if(click == one_player){
+        game.registerMiniGame(new PasseTrappe_1());
+        choose = true;  
+      }else if(click == two_player){
+        //game = new PasseTrappe(this.level, this.path_img);
+        game.registerMiniGame(new PasseTrappe_2());
+        choose = true;
+      }
+    }
   }
   
   IState update(float delta) {
@@ -76,40 +115,20 @@ public class PasseTrappeIndex extends MiniGame {
     textSize(32);
     textAlign(CENTER);
     text( "Passe Trappe", window_width/2, 100);
-  }
-  
-  void pressBtnOnePlayer(Zone z, Touch t){
-     
-    switch(level){
-      case EASY:
-        border = loadImage("assets/borderEasy.png");
-        break;
-      case MEDIUM:
-        border = loadImage("assets/borderMedium.png");
-        break;
-      case HARD:
-        border = loadImage("assets/borderHard.png");
-        break;
-      default:
-        break;
+    if(choose){
+      game.handleInput();
+      game.update();
+      game.draw(); 
     }
-    
   }
   
-  void pressBtnTwoPlayer(vialab.SMT.ButtonZone zone, vialab.SMT.Touch touch){
-  
-  }
-  
-  void pressBtnLevelEasy(){
-    fill(0);
-  }
-  
-  void pressBtnLevelMedium(){
-    fill(0);
-  }
-  
-  void pressBtnLevelHard(){
-    fill(0);
+  Button isOver(Touch t, ButtonZone btn){
+    println("t.x:" + t.getX() + "/ t.y:"+t.getY());
+    println("btn.x:" + btn.getX() + "/ btn.y:"+btn.getY());
+    if(t.getX() > btn.getX() && t.getX() < btn.getX() + btn_width && t.getY() > btn.getY() && t.getY() < btn.getY() + btn_height){
+      return btn;
+    }
+    return null;
   }
   
   void clearLevelSelection(){
