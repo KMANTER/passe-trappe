@@ -27,12 +27,12 @@ public class PasseTrappe_2 extends PasseTrappe {
   public PVector middleTopCornerR;
   public PVector middleBottomCornerR;
   
-  PImage border = loadImage("assets/borderHard.png");
+  PImage border = loadImage("assets/borderEasy.png");
   PImage img = loadImage("assets/backgroundTexture.png");
   
   // Constructor
   PasseTrappe_2() {
-    this.level = 100;
+    this.level = 130;
   }
   
   PasseTrappe_2(int l, String pi) {
