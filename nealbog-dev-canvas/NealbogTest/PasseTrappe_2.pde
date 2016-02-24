@@ -25,19 +25,20 @@ public class PasseTrappe_2 extends PasseTrappe {
   
   PImage border; // = loadImage("assets/borderEasy.png");
   PImage img = loadImage("assets/backgroundTexture.png");
-  Timer timer;
+  
   
   // Constructor
   PasseTrappe_2() {
     timer = new Timer();  
   }
   
-  PasseTrappe_2(int l, String pi) {
+  PasseTrappe_2(int l, String pi, boolean fromIndex) {
     println("PT2 > " + l + " - " + pi);
     this.level = l;
     this.border = loadImage(pi);
-    timer = new Timer();
-    init();
+    this.timer = new Timer();
+    if(fromIndex)
+      init();
   }
   
   void init() {

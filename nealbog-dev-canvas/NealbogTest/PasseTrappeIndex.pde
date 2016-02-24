@@ -76,11 +76,11 @@ public class PasseTrappeIndex extends MiniGame {
           this.level = this.HARD;
           this.path_img = "assets/borderHard.png";
         }else if(click == one_player){
-          game = new PasseTrappe_1(this.level, this.path_img);
+          game = new PasseTrappe_1(this.level, this.path_img, true);
           this.game.handleInput(inputHandler);
           this.game.draw();
         }else if(click == two_player){
-          game = new PasseTrappe_2(this.level, this.path_img);
+          game = new PasseTrappe_2(this.level, this.path_img, true);
           this.game.handleInput(inputHandler);
           this.game.draw();
         }

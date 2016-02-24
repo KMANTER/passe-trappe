@@ -8,11 +8,15 @@ public class PasseTrappe_1 extends PasseTrappe {
   
   // Constructor
   PasseTrappe_1() {
+    timer = new Timer();
   }
   
-  PasseTrappe_1(int l, String pi) {
+  PasseTrappe_1(int l, String pi, boolean fromIndex) {
     this.level = l;
     this.border = loadImage(pi);
+    this.timer = new Timer();
+    if(fromIndex)
+      init();
   }
   
   void init() {
@@ -52,11 +56,11 @@ public class PasseTrappe_1 extends PasseTrappe {
     
     //start up the physics engine
     try{
-      Thread.sleep( 0);
+      Thread.sleep(0);
     } catch( InterruptedException e){}
     
     physics.start();
-  
+    timer.StartTimer();
   }
 
   void handleInput(InputHandler inputHandler) {
@@ -79,6 +83,13 @@ public class PasseTrappe_1 extends PasseTrappe {
     background(img);
     image(border, 0, 0); // Image position
     elastic();
+    //draw timer
+    String t = timer.getTime();
+    textSize(32);
+    fill(0, 102, 153);
+    textAlign( CENTER);
+    text( t, window_halfWidth, 32);
+    println(t);
     checkEndGame1P();
   }
   

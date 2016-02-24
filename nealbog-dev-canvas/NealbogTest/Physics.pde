@@ -56,7 +56,7 @@ public class Physics extends Thread {
       handlePuckCollisions( puck, index);
     }
     for( Puck puck : game.getPucks()){
-      handleWallCollisions( puck);
+      handleWallCollisions(puck);
     }
     
     applyTickLimit();
@@ -107,7 +107,6 @@ public class Physics extends Thread {
   }
 
   public void handleWallCollisions( Puck puck){
-    if( puck.scored) return;
     for( Wall wall : game.getWalls()){
       //get puck to wall distance
       PVector posPuck= puck.position;
