@@ -29,10 +29,14 @@ public class PasseTrappe_2 extends PasseTrappe {
   
   PImage border = loadImage("assets/borderEasy.png");
   PImage img = loadImage("assets/backgroundTexture.png");
+  Timer timer;
+
+
   
   // Constructor
   PasseTrappe_2() {
     this.level = 130;
+    timer = new Timer();
   }
   
   PasseTrappe_2(int l, String pi) {
@@ -41,6 +45,8 @@ public class PasseTrappe_2 extends PasseTrappe {
   }
   
   void init() {
+
+
     //strokeWeight(2);
     fill(204, 102, 0);
     
@@ -93,6 +99,7 @@ public class PasseTrappe_2 extends PasseTrappe {
     } catch( InterruptedException e){}
     
     physics.start();
+    timer.StartTimer();
   }
   
   void supplyPuck(){
@@ -137,6 +144,15 @@ public class PasseTrappe_2 extends PasseTrappe {
     background(img);
     image(border, 0, 0); // Image position
     elastic();
+    
+    String t = timer.getTime();
+    //draw timer
+    textSize(32);
+    fill(0, 102, 153);
+    textAlign( CENTER);
+    text( t, window_halfWidth, 32);
+    println(t);
+
   }
   
 
