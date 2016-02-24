@@ -50,7 +50,7 @@ public class PasseTrappe_2 extends PasseTrappe {
     //strokeWeight(2);
     fill(204, 102, 0);
     
-    this.supplyPuck();
+    supplyPuck();
      
     this.window_halfWidth = this.window_width / 2;
     this.window_halfHeight = this.window_height / 2;
@@ -102,27 +102,6 @@ public class PasseTrappe_2 extends PasseTrappe {
     timer.StartTimer();
   }
   
-  void supplyPuck(){
-    //Positionning
-    for(int i=0; i < 10; i++){
-      print(i+"->");
-      Puck p;
-      int mod = i % 2;
-      if( mod == 0){// Left Zone
-        p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
-      }else{// Right Zone
-        p = new Puck( this.window_width - (this.marge + this.puckRadius + this.thickness), this.window_height - (this.marge + ((i-mod) * this.puckRadius)), this.puckRadius);
-      }
-      println(i + " : "+p.x+"/"+p.y);
-      pucks.add(p);
-    }
-    
-    for(Puck p : pucks){
-      SMT.add(p);
-    }
-    
-    println("nb pucks" + pucks.size());
-  }
 
   void handleInput(InputHandler inputHandler) {
     if(pucks.size() > 0){
@@ -141,9 +120,10 @@ public class PasseTrappe_2 extends PasseTrappe {
   }
   
   void draw() {
-    background(img);
-    image(border, 0, 0); // Image position
+    image(img, 0, 0, width, height);
+    image(border, 0, 0, width, height); // Image position
     elastic();
+<<<<<<< HEAD
     
     String t = timer.getTime();
     //draw timer
@@ -153,7 +133,8 @@ public class PasseTrappe_2 extends PasseTrappe {
     text( t, window_halfWidth, 32);
     println(t);
 
+=======
+    checkEndGame2P();
+>>>>>>> 23df1ce9c38be84eeefc4c154f5d330c367f4f63
   }
-  
-
 }

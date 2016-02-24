@@ -1,8 +1,6 @@
 //imports
 import java.awt.TextArea;
-
-//SMT library imports
-import vialab.SMT.*;
+import java.util.ArrayList;
 
 public class PasseTrappeIndex extends MiniGame {
   
@@ -17,50 +15,76 @@ public class PasseTrappeIndex extends MiniGame {
   PImage border = null;
   PImage img = null;
   
-  ButtonZone one_player;
-  ButtonZone two_player;
-  
-  ButtonZone level_easy;
-  ButtonZone level_medium;
-  ButtonZone level_hard;
+  Button level_easy;
+  Button level_medium;
+  Button level_hard;
+  Button one_player;
+  Button two_player;
+    
+  int btn_width = 120;
+  int btn_height = 80;
+  ArrayList<Button> buttons = new ArrayList<Button>();
   
   TextArea title;
   
   int level;
-  Game choice;
+  String path_img;
+  boolean choose = false;
+  Game game = null;
   
   // Constructor
   PasseTrappeIndex() {
-    
   }
   
   void init() {
     img = loadImage("assets/backgroundTexture.png");
     border = loadImage("assets/borderEasy.png");
-        
-    //Create buttons
-    //ButtonZone( name, x, y, width, height, text )
-    int btn_width = 120;
-    int btn_height = 80;
     
-    level_easy = new ButtonZone("BtnLevelEasy",(window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Easy");
-    level_medium = new ButtonZone("BtnLevelMedium", (window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height, "Medium");
-    level_hard = new ButtonZone("BtnLevelHard", (window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height, "Hard");
+    // Create buttons
+    this.level_easy = new Button(new PVector((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height)));
+    this.level_medium = new Button(new PVector((window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height)));
+    this.level_hard = new Button(new PVector((window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height)));
+    this.one_player = new Button(new PVector((window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height)));
+    this.two_player = new Button(new PVector((window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height)));
     
-    one_player = new ButtonZone("BtnOnePlayer",(window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "One Player");
-    two_player = new ButtonZone("BtnTwoPlayer",(window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height, "Two Player");
-    
-    SMT.add(one_player);
-    SMT.add(two_player);
-    SMT.add(level_easy);
-    SMT.add(level_medium);
-    SMT.add(level_hard);
+    buttons.add(level_easy);
+    buttons.add(level_medium);
+    buttons.add(level_hard);
+    buttons.add(one_player);
+    buttons.add(two_player);
     
     this.clearLevelSelection();
     
   }
 
   void handleInput(InputHandler inputHandler) {
+    if (inputHandler.getTouches().length == 0) return;
+    Touch t = inputHandler.getTouches()[0];
+    Button click = null;
+    for(Button b : buttons){ // Number of button
+      click = this.isOver(t, b);
+      if(click != null){
+        if(click == level_easy){
+          this.level = this.EASY;
+          this.path_img = "assets/borderEasy.png";
+          
+        }else if(click == level_medium){
+          this.level = this.MEDIUM;
+          this.path_img = "assets/borderMedium.png";
+          fill(50);
+        }else if(click == level_hard){
+          this.level = this.HARD;
+          this.path_img = "assets/borderHard.png";
+          fill(100);
+        }else if(click == one_player){
+          //game.registerMiniGame(new PasseTrappe_1());
+        }else if(click == two_player){
+          //game = new PasseTrappe(this.level, this.path_img);
+          //game.registerMiniGame(new PasseTrappe_2());
+        }
+      }
+    }
+    
     
   }
   
@@ -76,40 +100,30 @@ public class PasseTrappeIndex extends MiniGame {
     textSize(32);
     textAlign(CENTER);
     text( "Passe Trappe", window_width/2, 100);
-  }
-  
-  void pressBtnOnePlayer(Zone z, Touch t){
-     
-    switch(level){
-      case EASY:
-        border = loadImage("assets/borderEasy.png");
-        break;
-      case MEDIUM:
-        border = loadImage("assets/borderMedium.png");
-        break;
-      case HARD:
-        border = loadImage("assets/borderHard.png");
-        break;
-      default:
-        break;
-    }
     
+    
+    rect(level_easy.getPosition().x, level_easy.getPosition().y, btn_width, btn_height); // easy
+    rect(level_medium.getPosition().x, level_medium.getPosition().y, btn_width, btn_height); // medium
+    rect(level_hard.getPosition().x, level_hard.getPosition().y, btn_width, btn_height); // hard
+    
+    rect(one_player.getPosition().x, one_player.getPosition().y, btn_width, btn_height); // one player
+    rect(two_player.getPosition().x, two_player.getPosition().y, btn_width, btn_height); // two player
+    
+    /*
+    rect((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height); // easy
+    rect((window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height); // medium
+    rect((window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height); // hard
+    
+    rect((window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height); // one player
+    rect((window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height); // two player
+    */
   }
   
-  void pressBtnTwoPlayer(vialab.SMT.ButtonZone zone, vialab.SMT.Touch touch){
-  
-  }
-  
-  void pressBtnLevelEasy(){
-    fill(0);
-  }
-  
-  void pressBtnLevelMedium(){
-    fill(0);
-  }
-  
-  void pressBtnLevelHard(){
-    fill(0);
+  Button isOver(Touch t, Button btn){
+    if(t.getX() > btn.getPosition().x && t.getX() < btn.getPosition().x + btn_width && t.getY() > btn.getPosition().y && t.getY() < btn.getPosition().y + btn_height){
+      return btn;
+    }
+    return null;
   }
   
   void clearLevelSelection(){
