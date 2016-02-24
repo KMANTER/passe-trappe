@@ -1,15 +1,12 @@
 //standard library imports
 import java.awt.TextArea;
 import java.util.Vector;
+
 //SMT library imports
 import vialab.SMT.*;
 
 public class PasseTrappe_2 extends PasseTrappe {
-  
-
-  
   //main variables
-
   Physics physics = new Physics(this);
   
   //corners
@@ -21,36 +18,33 @@ public class PasseTrappe_2 extends PasseTrappe {
   public PVector topMiddleCorner;
   public PVector bottomMiddleCorner;
 
-  
   public PVector middleTopCornerL;
   public PVector middleBottomCornerL;
   public PVector middleTopCornerR;
   public PVector middleBottomCornerR;
   
-  PImage border = loadImage("assets/borderEasy.png");
+  PImage border; // = loadImage("assets/borderEasy.png");
   PImage img = loadImage("assets/backgroundTexture.png");
   Timer timer;
-
-
   
   // Constructor
   PasseTrappe_2() {
-    this.level = 130;
-    timer = new Timer();
+    timer = new Timer();  
   }
   
   PasseTrappe_2(int l, String pi) {
-    this.level = 140;
-    this.img = loadImage(pi);
+    println("PT2 > " + l + " - " + pi);
+    this.level = l;
+    this.border = loadImage(pi);
+    timer = new Timer();
+    init();
   }
   
   void init() {
-
-
     //strokeWeight(2);
     fill(204, 102, 0);
     
-    supplyPuck();
+    supplyPuck(true);
      
     this.window_halfWidth = this.window_width / 2;
     this.window_halfHeight = this.window_height / 2;
@@ -123,8 +117,6 @@ public class PasseTrappe_2 extends PasseTrappe {
     image(img, 0, 0, width, height);
     image(border, 0, 0, width, height); // Image position
     elastic();
-<<<<<<< HEAD
-    
     String t = timer.getTime();
     //draw timer
     textSize(32);
@@ -132,9 +124,6 @@ public class PasseTrappe_2 extends PasseTrappe {
     textAlign( CENTER);
     text( t, window_halfWidth, 32);
     println(t);
-
-=======
     checkEndGame2P();
->>>>>>> 23df1ce9c38be84eeefc4c154f5d330c367f4f63
   }
 }
