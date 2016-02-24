@@ -29,7 +29,7 @@ abstract class PasseTrappe extends MiniGame {
   public PVector middleBottomCorner;
   
   PImage border = null;
-  PImage img = null;
+  PImage img = loadImage("assets/backgroundTexture.png");
   Timer timer;
   
   void supplyPuck(boolean multi){

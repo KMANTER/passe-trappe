@@ -90,7 +90,7 @@ public class PasseTrappe_1 extends PasseTrappe {
     textAlign( CENTER);
     text( t, window_halfWidth, 32);
     println(t);
-    checkEndGame1P();
+    checkEndGame1P(20);
   }
   
 }

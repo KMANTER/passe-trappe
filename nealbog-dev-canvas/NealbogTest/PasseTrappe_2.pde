@@ -24,7 +24,7 @@ public class PasseTrappe_2 extends PasseTrappe {
   public PVector middleBottomCornerR;
   
   PImage border; // = loadImage("assets/borderEasy.png");
-  PImage img = loadImage("assets/backgroundTexture.png");
+  PImage img;
   
   
   // Constructor
