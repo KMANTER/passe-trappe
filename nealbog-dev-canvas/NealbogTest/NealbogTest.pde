@@ -21,4 +21,5 @@ void draw() {
   this.game.handleInput();
   this.game.update();
   this.game.draw();
+
 }
