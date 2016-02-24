@@ -41,11 +41,11 @@ public class PasseTrappeIndex extends MiniGame {
     border = loadImage("assets/borderEasy.png");
     
     // Create buttons
-    this.level_easy = new Button(new PVector((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height)));
-    this.level_medium = new Button(new PVector((window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height)));
-    this.level_hard = new Button(new PVector((window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height)));
-    this.one_player = new Button(new PVector((window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height)));
-    this.two_player = new Button(new PVector((window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height)));
+    this.level_easy = new Button("Easy", new PVector((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height)));
+    this.level_medium = new Button("Medium", new PVector((window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height)));
+    this.level_hard = new Button("Hard", new PVector((window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height)));
+    this.one_player = new Button("One Player", new PVector((window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height)));
+    this.two_player = new Button("Two Player", new PVector((window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height)));
     
     buttons.add(level_easy);
     buttons.add(level_medium);
@@ -54,7 +54,6 @@ public class PasseTrappeIndex extends MiniGame {
     buttons.add(two_player);
     
     this.clearLevelSelection();
-    
   }
 
   void handleInput(InputHandler inputHandler) {
@@ -62,20 +61,20 @@ public class PasseTrappeIndex extends MiniGame {
     Touch t = inputHandler.getTouches()[0];
     Button click = null;
     for(Button b : buttons){ // Number of button
+      
       click = this.isOver(t, b);
       if(click != null){
+        this.clearLevelSelection();
+        click.isClicked = true;
         if(click == level_easy){
           this.level = this.EASY;
           this.path_img = "assets/borderEasy.png";
-          
         }else if(click == level_medium){
           this.level = this.MEDIUM;
           this.path_img = "assets/borderMedium.png";
-          fill(50);
         }else if(click == level_hard){
           this.level = this.HARD;
           this.path_img = "assets/borderHard.png";
-          fill(100);
         }else if(click == one_player){
           //game.registerMiniGame(new PasseTrappe_1());
         }else if(click == two_player){
@@ -101,13 +100,9 @@ public class PasseTrappeIndex extends MiniGame {
     textAlign(CENTER);
     text( "Passe Trappe", window_width/2, 100);
     
-    
-    rect(level_easy.getPosition().x, level_easy.getPosition().y, btn_width, btn_height); // easy
-    rect(level_medium.getPosition().x, level_medium.getPosition().y, btn_width, btn_height); // medium
-    rect(level_hard.getPosition().x, level_hard.getPosition().y, btn_width, btn_height); // hard
-    
-    rect(one_player.getPosition().x, one_player.getPosition().y, btn_width, btn_height); // one player
-    rect(two_player.getPosition().x, two_player.getPosition().y, btn_width, btn_height); // two player
+    for(Button b : buttons){
+      b.draw();
+    }
     
     /*
     rect((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height); // easy
@@ -127,6 +122,8 @@ public class PasseTrappeIndex extends MiniGame {
   }
   
   void clearLevelSelection(){
-     
+     for(Button b : buttons){
+       b.isClicked = false;
+     }
   }
 }
