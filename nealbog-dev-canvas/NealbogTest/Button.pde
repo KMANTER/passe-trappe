@@ -25,8 +25,6 @@ public class Button{
   }
   
   public void draw(){
-    
-    
     if(this.isClicked()){
       fill(255,255,0);
     }

@@ -1,10 +1,10 @@
-final int windowWidth = 1280;
+final int windowWidth = 1200;
 final int windowHeight = 700;
 
 Game game;
 
 void registerMiniGames() {
-  game.registerMiniGame(new PasseTrappe_2());
+  game.registerMiniGame(new PasseTrappe_1(110, "assets/borderMedium.png"));
 }
 
 // Subscribe your mini-game here:
@@ -14,8 +14,8 @@ void setup() {
   game = new Game();
   registerMiniGames();
   frameRate(60);
-  game.startCalibration();
-  //game.start();
+  //game.startCalibration();
+  game.start();
 }
 
 void draw() {

@@ -6,14 +6,13 @@ import vialab.SMT.*;
 
 public class PasseTrappe_1 extends PasseTrappe {
   
-  
   // Constructor
   PasseTrappe_1() {
   }
   
   PasseTrappe_1(int l, String pi) {
     this.level = l;
-    this.img = loadImage(pi);
+    this.border = loadImage(pi);
   }
   
   void init() {
@@ -22,7 +21,7 @@ public class PasseTrappe_1 extends PasseTrappe {
     fill(204, 102, 0);
     
     pucks = new Vector<Puck>();
-    this.supplyPuck();
+    this.supplyPuck(false);
      
     this.window_halfWidth = this.window_width / 2;
     this.window_halfHeight = this.window_height / 2;
@@ -50,16 +49,6 @@ public class PasseTrappe_1 extends PasseTrappe {
     walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
     walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
     walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
-    
-
-    /*create nets
-    player = new Net( "Player", 0, -window_halfHeight, 50, 400);
-    enemy = new Net( "Enemy", -window_width, -window_halfHeight, 50, 400);
-    SMT.add( player);
-    SMT.add( enemy);
-    */
-    
-    
     
     //start up the physics engine
     try{
@@ -90,6 +79,7 @@ public class PasseTrappe_1 extends PasseTrappe {
     background(img);
     image(border, 0, 0); // Image position
     elastic();
+    checkEndGame1P();
   }
   
 }

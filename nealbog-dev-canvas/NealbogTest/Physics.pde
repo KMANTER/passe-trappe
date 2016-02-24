@@ -7,7 +7,7 @@ public class Physics extends Thread {
   public final int ticksPerSecond = 250;
   public final long nanosecondsPerSecond = 1000000000;
   public final float jiggle = 0.001;
-  public final float friction = 0.989;
+  public final float friction = 0.985;
   public double secondsPerTick;
   //public variables
   public boolean terminate = false;
@@ -164,18 +164,7 @@ public class Physics extends Thread {
         puck.velocity.add( puck_force);
       }
   }
-/*  
-  public void handleNetCollisions( Puck puck){
-    //check player's net
-    if( handleNetCollision( puck, game.getPlayer())){
-      game.getEnemy().score++;
-    }
-    //check enemy's net
-    if( handleNetCollision( puck, game.getEnemy())){
-      game.getPlayer().score++;
-    }
-  }*/
-
+  
   //utility functions
   private void updateTime(){
     time_old = time;

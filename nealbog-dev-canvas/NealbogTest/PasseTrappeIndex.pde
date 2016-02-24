@@ -30,7 +30,7 @@ public class PasseTrappeIndex extends MiniGame {
   int level;
   String path_img;
   boolean choose = false;
-  Game game = null;
+  PasseTrappe game = null;
   
   // Constructor
   PasseTrappeIndex() {
@@ -76,15 +76,16 @@ public class PasseTrappeIndex extends MiniGame {
           this.level = this.HARD;
           this.path_img = "assets/borderHard.png";
         }else if(click == one_player){
-          //game.registerMiniGame(new PasseTrappe_1());
+          game = new PasseTrappe_1(this.level, this.path_img);
+          this.game.handleInput(inputHandler);
+          this.game.draw();
         }else if(click == two_player){
-          //game = new PasseTrappe(this.level, this.path_img);
-          //game.registerMiniGame(new PasseTrappe_2());
+          game = new PasseTrappe_2(this.level, this.path_img);
+          this.game.handleInput(inputHandler);
+          this.game.draw();
         }
       }
     }
-    
-    
   }
   
   IState update(float delta) {
@@ -103,15 +104,6 @@ public class PasseTrappeIndex extends MiniGame {
     for(Button b : buttons){
       b.draw();
     }
-    
-    /*
-    rect((window_width / 4) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height); // easy
-    rect((window_width / 2) - (btn_width/2), (window_height / 2) - (btn_height), btn_width, btn_height); // medium
-    rect((window_width - (window_width / 4)- (btn_width/2)), (window_height / 2) - (btn_height), btn_width, btn_height); // hard
-    
-    rect((window_width / 4) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height); // one player
-    rect((window_width - (window_width / 4)) - (btn_width/2), (window_height / 2) + (btn_height), btn_width, btn_height); // two player
-    */
   }
   
   Button isOver(Touch t, Button btn){

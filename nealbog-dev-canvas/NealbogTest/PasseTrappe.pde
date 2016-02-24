@@ -29,14 +29,17 @@ abstract class PasseTrappe extends MiniGame {
   public PVector middleBottomCorner;
   
   PImage border = null;
-  PImage img = null;
+  PImage img = loadImage("assets/backgroundTexture.png");
   
-  void supplyPuck(){
+  void supplyPuck(boolean multi){
     //Positionning
     for(int i=0; i < 10; i++){
       print(i+"->");
       Puck p;
-      int mod = i % 2;
+      int mod = 0;
+      if(multi)
+         mod = i % 2;
+      
       if( mod == 0){// Left Zone
         p = new Puck( this.marge + this.puckRadius + this.thickness, this.marge + ((i-mod) * this.puckRadius), this.puckRadius);
       }else{// Right Zone
@@ -116,18 +119,21 @@ abstract class PasseTrappe extends MiniGame {
     }
   }
 
-  public void checkEndGame1P(int seconds_left){
+  public void checkEndGame1P(){
     int cptleft = 0;
+    int seconds_left = 1;
     if( seconds_left > 0){
       for(Puck p : this.getPucks()){
-        if(p.position.x < this.window_halfWidth - (this.thickness / 2))
+        if(p.position.x > this.window_halfWidth + (this.thickness / 2))
           cptleft++;
       }
       if(cptleft == 10){
         println("WINNER");
+        win();
       }     
-    }else
+    }else{
       println("FAILURE");
-    
+      lose();
+    }
   }
 }
