@@ -85,6 +85,7 @@ public class PasseTrappe_2 extends PasseTrappe {
       println(t);
       int remainingTime =timer.getRemainingTime();
       println("le temps restant : "+remainingTime);
+      println("time backwards : "+timer.getBackwardsTime());
       checkEndGame2P();
     }else{
       this.stop();
