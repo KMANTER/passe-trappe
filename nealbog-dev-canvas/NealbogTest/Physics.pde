@@ -128,7 +128,16 @@ public class Physics extends Thread {
     //println();
   }
 
-  public void handleElasticCollision(Puck puck, Touch t, int force){
+  public void handleElasticCollision(Elastic elastic, Puck puck){
+    PVector impact = null;
+    if(puck.position.x < game.marge){
+      print("Impact");
+      impact = new PVector(puck.position.x, puck.position.y + puck.radius);
+    }else if(puck.position.x > game.window_width - game.marge){
+      impact = new PVector(puck.position.x + puck.radius, puck.position.y + puck.radius);
+    } 
+    elastic.editCurve(impact);
+    /* */
       PVector touchPosition = new PVector(t.x, t.y);
       PVector difference = PVector.sub(touchPosition, puck.position);
       float distance = difference.mag() - puck.radius - force;
@@ -155,6 +164,7 @@ public class Physics extends Thread {
         puck_force.add( game.scale(touchPosition, puck_massTerm2));
         puck.velocity.add( puck_force);
       }
+      /* */
   }
   
   //utility functions

@@ -45,11 +45,11 @@ public class Puck extends Zone{
     fill( 150, 50, 50, 255);
     ellipse(
       position.x, position.y,
-      this.radius, this.radius);
+      this.width, this.height);
   }
   
   public void pickDraw() {
-    ellipse(position.x, position.y, this.radius, this.radius);
+    ellipse(position.x, position.y, this.width, this.height);
   }
   
   public void touch(){

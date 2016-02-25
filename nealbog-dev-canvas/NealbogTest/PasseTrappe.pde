@@ -8,7 +8,7 @@ abstract class PasseTrappe extends MiniGame {
   final int puck_count = 10;
   final int thickness = 20;
   final int marge = 150;
-  final int puckRadius = 90;
+  final int puckRadius = 30;
   int level; 
   
   //main variables
@@ -61,7 +61,7 @@ abstract class PasseTrappe extends MiniGame {
     walls.add( new Wall( bottomRightCorner, bottomMiddleCorner, this));
     walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
     walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
-    walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
+    walls.add( new Wall(bottomLeftCorner, topLeftCorner, this));
     
   }
   
@@ -98,6 +98,7 @@ abstract class PasseTrappe extends MiniGame {
   void elastic(){
     fill(0);
     // test elastic
+    
     rect(marge, 0, 1, window_height); // Left
     rect(window_width - 1 - marge, 0, 1, window_height); // Right
   }
