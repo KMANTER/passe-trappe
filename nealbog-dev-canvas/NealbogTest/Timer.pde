@@ -38,6 +38,16 @@ public class Timer{
     return this.time;
   }
   
+  public String getBackwardsTime(){
+     
+    int minutes = (this.remainingTime % 3600) / 60;
+    int seconds = this.remainingTime % 60;
+    
+    String timeString = String.format("%02d:%02d",  minutes, seconds);
+    
+    return timeString;
+  } 
+  
   public int getRemainingTime(){
     return this.remainingTime;
   }

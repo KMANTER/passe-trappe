@@ -77,14 +77,19 @@ public class PasseTrappe_2 extends PasseTrappe {
     elastic();
     
     if(!this.gameover){
-      String t = timer.getTime();
+      timer.getTime();
+      String t = timer.getBackwardsTime();
       textSize(32);
       fill(0, 102, 153);
+      
+      if(timer.getRemainingTime() < 10){
+        fill(255, 0, 0);
+      }
       textAlign( CENTER);
-      text( t, window_halfWidth, 64);
-      println(t);
-      int remainingTime =timer.getRemainingTime();
-      println("le temps restant : "+remainingTime);
+      text(t, window_halfWidth, 64);
+      
+      println("le temps restant : " + t);
+      
       checkEndGame2P(timer.getRemainingTime());
     }else{
       this.stop();

@@ -54,12 +54,17 @@ public class PasseTrappe_1 extends PasseTrappe {
     //draw timer
     
     if(!this.gameover){
-      String t = timer.getTime();
+      timer.getTime();
+      String t = timer.getBackwardsTime();
       textSize(32);
       fill(0, 102, 153);
+      if(timer.getRemainingTime() < 10){
+        fill(255, 0, 0);
+      }
       textAlign( CENTER);
-      text( t, window_halfWidth, 64);
-      println(t);
+      text(t, window_halfWidth, 64);
+      
+      println("le temps restant : " + t);
       checkEndGame1P(timer.getRemainingTime());
     }else{
       textSize(52);
