@@ -137,7 +137,7 @@ public class Physics extends Thread {
       impact = new PVector(puck.position.x + puck.radius, puck.position.y + puck.radius);
     } 
     elastic.editCurve(impact);
-    /* */
+    /* 
       PVector touchPosition = new PVector(t.x, t.y);
       PVector difference = PVector.sub(touchPosition, puck.position);
       float distance = difference.mag() - puck.radius - force;
@@ -164,7 +164,7 @@ public class Physics extends Thread {
         puck_force.add( game.scale(touchPosition, puck_massTerm2));
         puck.velocity.add( puck_force);
       }
-      /* */
+       */
   }
   
   //utility functions
