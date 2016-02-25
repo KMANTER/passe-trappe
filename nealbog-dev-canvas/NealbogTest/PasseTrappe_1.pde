@@ -20,39 +20,11 @@ public class PasseTrappe_1 extends PasseTrappe {
   }
   
   void init() {
-    int level = 100;
-    //strokeWeight(2);
+    super.init();
     fill(204, 102, 0);
     
     pucks = new Vector<Puck>();
     this.supplyPuck(false);
-     
-    this.window_halfWidth = this.window_width / 2;
-    this.window_halfHeight = this.window_height / 2;
-    
-    //create corners
-    topLeftCorner = new PVector(this.marge, this.thickness);
-    topMiddleCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.thickness);
-    topRightCorner = new PVector( window_width - this.marge, this.thickness);
-    
-    middleTopCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight - (level));
-    middleBottomCorner = new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight + (level));
-    
-    bottomLeftCorner = new PVector( this.marge, window_height - this.thickness);
-    bottomMiddleCorner = new PVector(this.window_halfWidth + (this.thickness / 2), window_height - this.thickness);
-    bottomRightCorner = new PVector( window_width - this.marge, window_height - this.thickness);
-
-    //create walls
-    walls = new Vector<Wall>();
-    walls.add( new Wall( topLeftCorner, topMiddleCorner, this));
-    walls.add( new Wall( topMiddleCorner, middleTopCorner, this));
-    walls.add( new Wall( topMiddleCorner, topRightCorner, this));
-    walls.add( new Wall( topRightCorner, bottomRightCorner, this));
-    
-    walls.add( new Wall( bottomRightCorner, bottomMiddleCorner, this));
-    walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
-    walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
-    walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
     
     //start up the physics engine
     try{
@@ -73,10 +45,6 @@ public class PasseTrappe_1 extends PasseTrappe {
   
   IState update(float delta) {
     return keepOn();
-  }
-  
-  void stop(){
-    physics.terminate = true;
   }
   
   void draw() {

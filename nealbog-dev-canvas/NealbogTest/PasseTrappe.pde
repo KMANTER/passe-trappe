@@ -8,7 +8,7 @@ abstract class PasseTrappe extends MiniGame {
   final int puck_count = 10;
   final int thickness = 20;
   final int marge = 150;
-  final int puckRadius = 30;
+  final int puckRadius = 90;
   int level; 
   
   //main variables
@@ -35,6 +35,36 @@ abstract class PasseTrappe extends MiniGame {
   PImage img = loadImage("assets/backgroundTexture.png");
   Timer timer;
   
+  void init(){
+    this.window_halfWidth = this.window_width / 2;
+    this.window_halfHeight = this.window_height / 2;
+    
+    //create corners
+    topLeftCorner = new PVector(this.marge, this.thickness);
+    topMiddleCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.thickness);
+    topRightCorner = new PVector( window_width - this.marge, this.thickness);
+    
+    middleTopCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight - (level));
+    middleBottomCorner = new PVector(this.window_halfWidth + (this.thickness / 2), this.window_halfHeight + (level));
+    
+    bottomLeftCorner = new PVector( this.marge, window_height - this.thickness);
+    bottomMiddleCorner = new PVector(this.window_halfWidth + (this.thickness / 2), window_height - this.thickness);
+    bottomRightCorner = new PVector( window_width - this.marge, window_height - this.thickness);
+
+    //create walls
+    walls = new Vector<Wall>();
+    walls.add( new Wall( topLeftCorner, topMiddleCorner, this));
+    walls.add( new Wall( topMiddleCorner, middleTopCorner, this));
+    walls.add( new Wall( topMiddleCorner, topRightCorner, this));
+    walls.add( new Wall( topRightCorner, bottomRightCorner, this));
+    
+    walls.add( new Wall( bottomRightCorner, bottomMiddleCorner, this));
+    walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
+    walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
+    walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
+    
+  }
+  
   void supplyPuck(boolean multi){
     //Positionning
     for(int i=0; i < 10; i++){
@@ -59,6 +89,10 @@ abstract class PasseTrappe extends MiniGame {
     }
     
     println("nb pucks" + pucks.size());
+  }
+  
+  void stop(){
+    physics.terminate = true;
   }
   
   void elastic(){

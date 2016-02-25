@@ -39,55 +39,15 @@ public class PasseTrappe_2 extends PasseTrappe {
   }
   
   void init() {
-    //strokeWeight(2);
+    super.init();
     fill(204, 102, 0);
     
-    supplyPuck(true);
-     
-    this.window_halfWidth = this.window_width / 2;
-    this.window_halfHeight = this.window_height / 2;
-    
-    //create corners
-    println("level:"+this.level);
-    topLeftCorner = new PVector(this.marge, this.thickness);
-    println("topLeftCorner = x:"+this.marge+" , y:"+this.thickness);
-    topMiddleCorner = new PVector(this.window_halfWidth - (this.thickness / 2), this.thickness);
-    println("topMiddleCorner = x:"+(this.window_halfWidth + (this.thickness / 2))+" , y:"+this.thickness);
-
-    topRightCorner = new PVector( window_width - this.marge, this.thickness);
-    println("topRightCorner = x:"+(window_width - this.marge)+" , y:"+this.thickness);
-
-    middleTopCornerL = getmiddleTopCorner();
-    println("middleTopCorner = x:"+middleTopCornerL.x+" , y:"+middleTopCornerL.y);
-    middleBottomCornerL = getmiddleBottomCorner(); 
-    println("middleBottomCorner = x:"+middleBottomCornerL.x+" , y:"+middleBottomCornerL.y);
-    
-    middleTopCornerR = getmiddleTopCornerR();
-    println("middleTopCorner = x:"+middleTopCornerR.x+" , y:"+middleTopCornerR.y);
-    middleBottomCornerR = getmiddleBottomCornerR(); 
-    println("middleBottomCorner = x:"+middleBottomCornerR.x+" , y:"+middleBottomCornerR.y);
-    
-    bottomLeftCorner = new PVector( this.marge, window_height - this.thickness);
-    println("bottomLeftCorner = x:"+this.marge+" , y:"+(window_height - this.thickness));
-    bottomMiddleCorner = new PVector(this.window_halfWidth + (this.thickness / 2), window_height - this.thickness);
-    println("bottomMiddleCorner = x:"+(this.window_halfWidth + (this.thickness / 2))+" , y:"+(window_height - this.thickness));
-    bottomRightCorner = new PVector( window_width - this.marge, window_height - this.thickness);
-    println("bottomRightCorner = x:"+(window_width - this.marge)+" , y:"+(window_height - this.thickness));
-
-    //create walls
-    walls.add( new Wall( topLeftCorner, topMiddleCorner, this));
-    walls.add( new Wall( topMiddleCorner, middleTopCornerL, this));
-    walls.add( new Wall( topMiddleCorner, topRightCorner, this));
-    walls.add( new Wall( topRightCorner, bottomRightCorner, this));
-    
-    walls.add( new Wall( bottomRightCorner, bottomMiddleCorner, this));
-    walls.add( new Wall( bottomMiddleCorner, middleBottomCornerL, this));
-    walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
-    walls.add( new Wall( bottomLeftCorner, topLeftCorner, this));
+    pucks = new Vector<Puck>();
+    this.supplyPuck(true);
     
     //start up the physics engine
     try{
-      Thread.sleep( 0);
+      Thread.sleep(0);
     } catch( InterruptedException e){}
     
     physics.start();

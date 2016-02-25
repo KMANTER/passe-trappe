@@ -39,24 +39,17 @@ public class Physics extends Thread {
     updateTime();
     
     for( Puck puck : game.getPucks()){
-      //if( puck.scored) continue;
-      /*if( puck.velocity.mag() > Puck.maxSpeed){
-        puck.velocity.normalize();
-        puck.velocity.mult( Puck.maxSpeed);
-      }*/
-      
       PVector step = new PVector( puck.velocity.x, puck.velocity.y);
       step.x *= dtime;
       step.y *= dtime;
       puck.position.add( step);
       puck.velocity.mult( friction);
     }
-    for( int index = 0; index < game.getPucks().size(); index++){
-      Puck puck = game.getPucks().get( index);
-      handlePuckCollisions( puck, index);
-    }
+    int i = 0;
     for( Puck puck : game.getPucks()){
+      handlePuckCollisions(puck, i);
       handleWallCollisions(puck);
+      i++;
     }
     
     applyTickLimit();
