@@ -8,13 +8,13 @@ public class PasseTrappe_1 extends PasseTrappe {
   
   // Constructor
   PasseTrappe_1() {
-    timer = new Timer();
+    timer = new Timer(true);
   }
   
   PasseTrappe_1(int l, String pi, boolean fromIndex) {
     this.level = l;
     this.border = loadImage(pi);
-    this.timer = new Timer();
+    this.timer = new Timer(true);
     if(fromIndex)
       init();
   }
