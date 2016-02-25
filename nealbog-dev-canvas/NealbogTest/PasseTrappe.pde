@@ -196,11 +196,13 @@ abstract class PasseTrappe extends MiniGame {
     }else{
       this.gameover = true;
       this.winner = "You lose";
-      this.sendToServer("JBAY - Lose");
       println("FAILURE");
     }
   }
   
+  void displayEndGamePopUp(){
+    
+  }
   
   public void sendToServer(String message){
     String host = "localhost";
@@ -223,7 +225,7 @@ abstract class PasseTrappe extends MiniGame {
       // Write across the socket connection and flush the buffer ------ (char) 13 is the escape character 
       osw.write(message +  (char) 13);
       osw.flush();
-      socket.close();
+      connection.close();
     }catch(IOException ex){}
     
   }

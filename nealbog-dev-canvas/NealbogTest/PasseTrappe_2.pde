@@ -33,7 +33,7 @@ public class PasseTrappe_2 extends PasseTrappe {
     println("PT2 > " + l + " - " + pi);
     this.level = l;
     this.border = loadImage(pi);
-    this.timer = new Timer(false);
+    this.timer = new Timer(true);
     if(fromIndex)
       init();
   }
@@ -85,7 +85,7 @@ public class PasseTrappe_2 extends PasseTrappe {
       println(t);
       int remainingTime =timer.getRemainingTime();
       println("le temps restant : "+remainingTime);
-      checkEndGame2P();
+      checkEndGame2P(timer.getRemainingTime());
     }else{
       this.stop();
       textSize(52);

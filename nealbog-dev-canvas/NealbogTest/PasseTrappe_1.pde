@@ -14,7 +14,7 @@ public class PasseTrappe_1 extends PasseTrappe {
   PasseTrappe_1(int l, String pi, boolean fromIndex) {
     this.level = l;
     this.border = loadImage(pi);
-    this.timer = new Timer(true);
+    this.timer = new Timer(false);
     if(fromIndex)
       init();
   }
@@ -60,7 +60,7 @@ public class PasseTrappe_1 extends PasseTrappe {
       textAlign( CENTER);
       text( t, window_halfWidth, 64);
       println(t);
-      checkEndGame1P(20);
+      checkEndGame1P(timer.getRemainingTime());
     }else{
       textSize(52);
       fill(0, 102, 153);

@@ -7,6 +7,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,10 +27,13 @@ public class Launcher {
 	static boolean first;
 	static StringBuffer process;
 	static String TimeStamp;
+	
+	static Map<String, Integer> playersScores;
 
 	public Launcher() {
 		try {
 			ss = new ServerSocket(11111);
+			playersScores = new HashMap<String, Integer>();
 		} catch (IOException ex) {
 			Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -39,9 +50,11 @@ public class Launcher {
 				BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
 				InputStreamReader isr = new InputStreamReader(is);
 				process = new StringBuffer();
+				
 				while((character = isr.read()) != 13) {
 					process.append((char)character);
 				}
+				
 				System.out.println(process);
 				//need to wait 10 seconds for the app to update database
 				try {
