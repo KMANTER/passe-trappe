@@ -1,3 +1,7 @@
+import java.io.*;
+import java.net.*;
+import java.net.Socket;
+
 abstract class PasseTrappe extends MiniGame {
   //constants
   boolean window_fullscreen = false;
@@ -143,23 +147,34 @@ abstract class PasseTrappe extends MiniGame {
      return new PVector(this.window_halfWidth - (this.thickness / 2), this.window_halfHeight + (this.level/2));
   }
   
-  public void checkEndGame2P(){
+  public void checkEndGame2P(int seconds_left){
     int cpt_left = 0;
     int cpt_right = 0;
-    for(Puck p : this.getPucks()){
-      if(p.position.x < this.window_halfWidth - (this.thickness / 2))
-        cpt_left++;
-      else if( p.position.x > this.window_halfWidth + (this.thickness / 2))
-        cpt_right++;
-    }
-    if(cpt_left == 10){
+    if(seconds_left > 0){
+      for(Puck p : this.getPucks()){
+        if(p.position.x < this.window_halfWidth - (this.thickness / 2))
+          cpt_left++;
+        else if( p.position.x > this.window_halfWidth + (this.thickness / 2))
+          cpt_right++;
+      }
+      if(cpt_left == 10){
+        this.gameover = true;
+        this.winner = "Player Right wins";
+        println("RIGHT WINNER");
+      }else if(cpt_right == 10){
+        this.gameover = true;
+        this.winner = "Player Left wins";
+        println("LEFT WINNER");
+      }
+    }else{
       this.gameover = true;
-      this.winner = "Player Right wins";
-      println("RIGHT WINNER");
-    }else if(cpt_right == 10){
-      this.gameover = true;
-      this.winner = "Player Left wins";
-      println("LEFT WINNER");
+      if(cpt_left > cpt_right){
+        this.winner = "TIME OUT ! \nPlayer Right wins";
+      }else if(cpt_right > cpt_left){
+        this.winner = "TIME OUT ! \nPlayer Left wins";
+      }else{
+        this.winner = "TIME OUT ! \nIt's a draw";
+      }  
     }
   }
 
@@ -172,13 +187,44 @@ abstract class PasseTrappe extends MiniGame {
       }
       if(cpt_right == 10){
         this.gameover = true;
-        this.winner = "You win";
+        int remainTime = 30 - seconds_left;
+        this.winner = "You win in \n"+remainTime+"secs";
         println("WINNER");
+        
+        this.sendToServer("JBAY - " + remainTime);
       }     
     }else{
       this.gameover = true;
       this.winner = "You lose";
+      this.sendToServer("JBAY - Lose");
       println("FAILURE");
     }
+  }
+  
+  
+  public void sendToServer(String message){
+    String host = "localhost";
+    /* Define a port */
+    int port = 19999;
+
+    StringBuffer instr = new StringBuffer();
+    String TimeStamp;
+    System.out.println("SocketClient initialized");
+    try {
+      // Obtain an address object of the server
+      InetAddress address = InetAddress.getByName(host);
+      // Establish a socket connetion
+      Socket connection = new Socket(address, port);
+      // Instantiate a BufferedOutputStream object
+      BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());
+
+      OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
+
+      // Write across the socket connection and flush the buffer ------ (char) 13 is the escape character 
+      osw.write(message +  (char) 13);
+      osw.flush();
+      socket.close();
+    }catch(IOException ex){}
+    
   }
 }
