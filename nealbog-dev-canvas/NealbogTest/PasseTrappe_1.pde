@@ -84,13 +84,22 @@ public class PasseTrappe_1 extends PasseTrappe {
     image(border, 0, 0); // Image position
     elastic();
     //draw timer
-    String t = timer.getTime();
-    textSize(32);
-    fill(0, 102, 153);
-    textAlign( CENTER);
-    text( t, window_halfWidth, 32);
-    println(t);
-    checkEndGame1P(20);
+    
+    if(!this.gameover){
+      String t = timer.getTime();
+      textSize(32);
+      fill(0, 102, 153);
+      textAlign( CENTER);
+      text( t, window_halfWidth, 64);
+      println(t);
+      checkEndGame1P(20);
+    }else{
+      textSize(52);
+      fill(0, 102, 153);
+      textAlign(CENTER);
+      text(this.winner, window_halfWidth, window_halfHeight);
+      this.stop();
+    }
   }
   
 }

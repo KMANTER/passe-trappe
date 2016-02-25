@@ -16,6 +16,9 @@ abstract class PasseTrappe extends MiniGame {
   public Vector<Wall> walls= new Vector<Wall>();
   Physics physics = new Physics(this);
   
+  public boolean gameover = false;
+  public String winner;
+  
   //corners
   public PVector topLeftCorner;
   public PVector topRightCorner;
@@ -106,33 +109,41 @@ abstract class PasseTrappe extends MiniGame {
   }
   
   public void checkEndGame2P(){
-    int cptleft = 0;
-    int cptright = 0;
+    int cpt_left = 0;
+    int cpt_right = 0;
     for(Puck p : this.getPucks()){
       if(p.position.x < this.window_halfWidth - (this.thickness / 2))
-        cptleft++;
+        cpt_left++;
       else if( p.position.x > this.window_halfWidth + (this.thickness / 2))
-        cptright++;
+        cpt_right++;
     }
-    if(cptleft == 10){
+    if(cpt_left == 10){
+      this.gameover = true;
+      this.winner = "Player Right wins";
       println("RIGHT WINNER");
-    }else if(cptright == 10){
+    }else if(cpt_right == 10){
+      this.gameover = true;
+      this.winner = "Player Left wins";
       println("LEFT WINNER");
     }
   }
 
   public void checkEndGame1P(int seconds_left){
-    int cptleft = 0;
+    int cpt_right = 0;
     if( seconds_left > 0){
       for(Puck p : this.getPucks()){
-        if(p.position.x < this.window_halfWidth - (this.thickness / 2))
-          cptleft++;
+        if(p.position.x > this.window_halfWidth - (this.thickness / 2))
+          cpt_right++;
       }
-      if(cptleft == 10){
+      if(cpt_right == 10){
+        this.gameover = true;
+        this.winner = "You win";
         println("WINNER");
       }     
-    }else
+    }else{
+      this.gameover = true;
+      this.winner = "You lose";
       println("FAILURE");
-    
+    }
   }
 }

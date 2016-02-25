@@ -23,9 +23,6 @@ public class PasseTrappe_2 extends PasseTrappe {
   public PVector middleTopCornerR;
   public PVector middleBottomCornerR;
   
-  PImage border; // = loadImage("assets/borderEasy.png");
-  PImage img;
-  
   
   // Constructor
   PasseTrappe_2() {
@@ -118,13 +115,21 @@ public class PasseTrappe_2 extends PasseTrappe {
     image(img, 0, 0, width, height);
     image(border, 0, 0, width, height); // Image position
     elastic();
-    String t = timer.getTime();
-    //draw timer
-    textSize(32);
-    fill(0, 102, 153);
-    textAlign( CENTER);
-    text( t, window_halfWidth, 32);
-    println(t);
-    checkEndGame2P();
+    
+    if(!this.gameover){
+      String t = timer.getTime();
+      textSize(32);
+      fill(0, 102, 153);
+      textAlign( CENTER);
+      text( t, window_halfWidth, 64);
+      println(t);
+      checkEndGame2P();
+    }else{
+      this.stop();
+      textSize(52);
+      fill(0, 102, 153);
+      textAlign(CENTER);
+      text(this.winner, window_halfWidth, window_halfHeight);
+    }
   }
 }

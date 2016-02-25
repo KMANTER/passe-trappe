@@ -21,6 +21,14 @@ public class Wall {
   public Wall(PVector a, PVector b, PasseTrappe pt){
     this(a, b);
     this.game = pt;
+    
+    this.parallel = new PVector(
+      (float) (b.x - a.x),
+      (float) (b.y - a.y));
+    this.parallel.normalize();
+    
+    this.perpendicular = new PVector( -parallel.y, parallel.x);
+    this.perpendicular.normalize();
   }
 
   public PVector distanceVector( PVector point){
