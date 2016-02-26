@@ -5,6 +5,7 @@ import java.util.Vector;
 import vialab.SMT.*;
 
 public class PasseTrappe_1 extends PasseTrappe {
+  private int cpt_game = 0;
   
   // Constructor
   PasseTrappe_1() {
@@ -31,8 +32,13 @@ public class PasseTrappe_1 extends PasseTrappe {
       Thread.sleep(0);
     } catch( InterruptedException e){}
     
+    if(cpt_game > 0){
+      physics = new Physics(this);
+    }
     physics.start();
+    
     timer.StartTimer();
+    cpt_game++;
   }
 
   void handleInput(InputHandler inputHandler) {
@@ -41,10 +47,32 @@ public class PasseTrappe_1 extends PasseTrappe {
         p.update(inputHandler.getTouches());
       }
     }
+    
+    if(this.gameover){
+      println("its over");
+      if(inputHandler.getTouches().length > 0){
+        Touch t = inputHandler.getTouches()[0];
+        if(t.x > this.again.position.x && t.x < (this.again.position.x + 120) && t.y > this.again.position.y && t.y < (this.again.position.y + 80)){
+          println("new Game !");
+          startAgain();
+        } 
+      }
+    }
   }
   
   IState update(float delta) {
     return keepOn();
+  }
+  
+  public void startAgain(){
+    this.timer = new Timer(false);
+    println("nb pucks final" + this.pucks.size());
+    for(Puck p : this.pucks){
+      SMT.remove(p);
+    }
+    this.pucks = null;
+    this.gameover = false;
+    init();
   }
   
   void draw() {
@@ -52,11 +80,6 @@ public class PasseTrappe_1 extends PasseTrappe {
     image(border, 0, 0); // Image position
     elastic();
     //draw timer
-    if(!isPaused){
-      for(Button b : buttons){
-        b.draw();
-      }  
-    }
     if(!this.gameover){
       timer.getTime();
       String t = timer.getBackwardsTime();
@@ -71,6 +94,8 @@ public class PasseTrappe_1 extends PasseTrappe {
       println("le temps restant : " + t);
       checkEndGame1P(timer.getRemainingTime());
     }else{
+      fill(255);
+      again.draw();
       textSize(52);
       fill(0, 102, 153);
       textAlign(CENTER);

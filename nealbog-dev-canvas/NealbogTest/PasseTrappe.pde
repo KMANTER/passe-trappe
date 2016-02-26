@@ -37,8 +37,7 @@ abstract class PasseTrappe extends MiniGame {
   public PVector middleTopCorner;
   public PVector middleBottomCorner;
   
-  public Button pause;
-  public Button resume;
+  public Button again;
   
   PImage border = null;
   PImage img = loadImage("assets/backgroundTexture.png");
@@ -72,12 +71,8 @@ abstract class PasseTrappe extends MiniGame {
     walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
     walls.add( new Wall(bottomLeftCorner, topLeftCorner, this));
     
-    pause = new Button("Pause", new PVector(this.window_halfWidth - 120, this.window_height - 45), 60, 40 );
-    resume = new Button("Resume", new PVector(this.window_halfWidth + 60, this.window_height - 45), 60, 40 );
-    
-    buttons.add(pause);
-    buttons.add(resume);
-    
+    again = new Button("Again ?", new PVector(this.window_halfWidth - 60, 30));
+    buttons.add(again);
   }
   
   void supplyPuck(boolean multi){

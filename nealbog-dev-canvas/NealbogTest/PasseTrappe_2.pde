@@ -7,22 +7,7 @@ import vialab.SMT.*;
 
 public class PasseTrappe_2 extends PasseTrappe {
   //main variables
-  Physics physics = new Physics(this);
-  
-  //corners
-  public PVector topLeftCorner;
-  public PVector topRightCorner;
-  public PVector bottomLeftCorner;
-  public PVector bottomRightCorner;
-  
-  public PVector topMiddleCorner;
-  public PVector bottomMiddleCorner;
-
-  public PVector middleTopCornerL;
-  public PVector middleBottomCornerL;
-  public PVector middleTopCornerR;
-  public PVector middleBottomCornerR;
-  
+  private int cpt_game;
   
   // Constructor
   PasseTrappe_2() {
@@ -50,8 +35,13 @@ public class PasseTrappe_2 extends PasseTrappe {
       Thread.sleep(0);
     } catch( InterruptedException e){}
     
+    if(cpt_game > 0){
+      physics = new Physics(this);
+    }
     physics.start();
+    
     timer.StartTimer();
+    cpt_game++;
   }
   
 
@@ -69,6 +59,17 @@ public class PasseTrappe_2 extends PasseTrappe {
   
   void stop(){
     physics.terminate = true;
+  }
+  
+  public void startAgain(){
+    this.timer = new Timer(true);
+    println("nb pucks final" + this.pucks.size());
+    for(Puck p : this.pucks){
+      SMT.remove(p);
+    }
+    this.pucks = null;
+    this.gameover = false;
+    init();
   }
   
   void draw() {
