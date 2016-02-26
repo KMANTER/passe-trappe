@@ -15,6 +15,15 @@ public class Button{
     this.position = position;
     this.isClicked = false;
   } 
+  
+    public Button(String text, PVector position, int w, int h){
+    this.text = text;
+    this.position = position;
+    this.btn_width = w;
+    this.btn_height = h;
+    this.isClicked = false;
+  } 
+ 
  
   public PVector getPosition(){
     return this.position;

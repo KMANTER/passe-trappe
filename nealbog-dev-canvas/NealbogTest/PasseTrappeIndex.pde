@@ -99,7 +99,7 @@ public class PasseTrappeIndex extends MiniGame {
     //display title
     textSize(32);
     textAlign(CENTER);
-    text( "Passe Trappe", window_width/2, 100);
+    text("Passe Trappe", window_width/2, 100);
     
     for(Button b : buttons){
       b.draw();

@@ -23,6 +23,7 @@ public class Puck extends Zone{
   private float animation_step;
   private Puck current = null;
   private Touch[] touches;
+  
   //constructor
   public Puck(){
     super(name, 0, 0, defaultRadius * 2, defaultRadius * 2);

@@ -52,7 +52,11 @@ public class PasseTrappe_1 extends PasseTrappe {
     image(border, 0, 0); // Image position
     elastic();
     //draw timer
-    
+    if(!isPaused){
+      for(Button b : buttons){
+        b.draw();
+      }  
+    }
     if(!this.gameover){
       timer.getTime();
       String t = timer.getBackwardsTime();

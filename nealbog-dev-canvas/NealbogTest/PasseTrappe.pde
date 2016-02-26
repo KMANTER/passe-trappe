@@ -18,9 +18,11 @@ abstract class PasseTrappe extends MiniGame {
   //main variables
   public Vector<Puck> pucks = new Vector<Puck>();
   public Vector<Wall> walls= new Vector<Wall>();
+  public Vector<Button> buttons = new Vector<Button>();
   Physics physics = new Physics(this);
   
   public boolean gameover = false;
+  public boolean isPaused = false;
   public String winner;
   
   //corners
@@ -34,6 +36,9 @@ abstract class PasseTrappe extends MiniGame {
   
   public PVector middleTopCorner;
   public PVector middleBottomCorner;
+  
+  public Button pause;
+  public Button resume;
   
   PImage border = null;
   PImage img = loadImage("assets/backgroundTexture.png");
@@ -66,6 +71,12 @@ abstract class PasseTrappe extends MiniGame {
     walls.add( new Wall( bottomMiddleCorner, middleBottomCorner, this));
     walls.add( new Wall( bottomMiddleCorner, bottomLeftCorner, this));
     walls.add( new Wall(bottomLeftCorner, topLeftCorner, this));
+    
+    pause = new Button("Pause", new PVector(this.window_halfWidth - 120, this.window_height - 45), 60, 40 );
+    resume = new Button("Resume", new PVector(this.window_halfWidth + 60, this.window_height - 45), 60, 40 );
+    
+    buttons.add(pause);
+    buttons.add(resume);
     
   }
   
@@ -157,13 +168,18 @@ abstract class PasseTrappe extends MiniGame {
         else if( p.position.x > this.window_halfWidth + (this.thickness / 2))
           cpt_right++;
       }
+      String userName = "user_" + String.valueOf(day())+String.valueOf(month())+String.valueOf(year())+String.valueOf(hour())+String.valueOf(minute())+String.valueOf(second());
+      int remainTime = 120 - seconds_left;
       if(cpt_left == 10){
         this.gameover = true;
-        this.winner = "Player Right wins";
+        this.winner = "Player Right wins\n"+userName+", " + remainTime+" secs";
+        this.sendToServer("2 : "+userName+" : " + remainTime);
         println("RIGHT WINNER");
       }else if(cpt_right == 10){
         this.gameover = true;
-        this.winner = "Player Left wins";
+        this.winner = "Player Left wins\n"+userName+", " + remainTime+" secs";
+        
+        this.sendToServer("2 : "+userName+" : " + remainTime);
         println("LEFT WINNER");
       }
     }else{
@@ -180,6 +196,7 @@ abstract class PasseTrappe extends MiniGame {
 
   public void checkEndGame1P(int seconds_left){
     int cpt_right = 0;
+    String userName = "user_" + String.valueOf(day())+String.valueOf(month())+String.valueOf(year())+String.valueOf(hour())+String.valueOf(minute())+String.valueOf(second());
     if( seconds_left > 0){
       for(Puck p : this.getPucks()){
         if(p.position.x > this.window_halfWidth - (this.thickness / 2))
@@ -188,10 +205,10 @@ abstract class PasseTrappe extends MiniGame {
       if(cpt_right == 10){
         this.gameover = true;
         int remainTime = 30 - seconds_left;
-        this.winner = "You win in \n"+remainTime+"secs";
+        this.winner = userName + "\nYou win in \n"+remainTime+"secs";
         println("WINNER");
         
-        this.sendToServer("JBAY - " + remainTime);
+        this.sendToServer("1 : " + userName + " : " + remainTime);
       }     
     }else{
       this.gameover = true;
@@ -211,12 +228,13 @@ abstract class PasseTrappe extends MiniGame {
 
     StringBuffer instr = new StringBuffer();
     String TimeStamp;
-    System.out.println("SocketClient initialized");
+    
     try {
       // Obtain an address object of the server
       InetAddress address = InetAddress.getByName(host);
       // Establish a socket connetion
       Socket connection = new Socket(address, port);
+      System.out.println("SocketClient initialized");
       // Instantiate a BufferedOutputStream object
       BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());
 
