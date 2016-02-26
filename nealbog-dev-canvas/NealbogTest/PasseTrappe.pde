@@ -163,7 +163,7 @@ abstract class PasseTrappe extends MiniGame {
         else if( p.position.x > this.window_halfWidth + (this.thickness / 2))
           cpt_right++;
       }
-      String userName = "user_" + String.valueOf(day())+String.valueOf(month())+String.valueOf(year())+String.valueOf(hour())+String.valueOf(minute())+String.valueOf(second());
+      String userName = this.getRandomName();
       int remainTime = 120 - seconds_left;
       if(cpt_left == 10){
         this.gameover = true;
@@ -191,7 +191,7 @@ abstract class PasseTrappe extends MiniGame {
 
   public void checkEndGame1P(int seconds_left){
     int cpt_right = 0;
-    String userName = "user_" + String.valueOf(day())+String.valueOf(month())+String.valueOf(year())+String.valueOf(hour())+String.valueOf(minute())+String.valueOf(second());
+    String userName = this.getRandomName();
     if( seconds_left > 0){
       for(Puck p : this.getPucks()){
         if(p.position.x > this.window_halfWidth - (this.thickness / 2))
@@ -241,5 +241,34 @@ abstract class PasseTrappe extends MiniGame {
       connection.close();
     }catch(IOException ex){}
     
+  }
+  
+  private String getRandomName(){
+    ArrayList<String> names = new ArrayList<String>();
+    names.add("Max");
+    names.add("Lucas");
+    names.add("Christian");
+    names.add("John");
+    names.add("Brandon");
+    names.add("Alison");
+    names.add("Alexandra");
+    names.add("Nicolas");
+    names.add("Kylie");
+    names.add("Rachel");
+    names.add("Kylie");
+    names.add("Adam");
+    names.add("Ruth");
+    names.add("Anthony");
+    names.add("Rose");
+    names.add("Alan");
+    names.add("Sonia");
+    names.add("Harry");
+    names.add("Wendy");
+    names.add("Emma");
+    
+    Random r = new Random();
+    int valeur = r.nextInt(20)
+    
+    return names.get(valeur);
   }
 }
