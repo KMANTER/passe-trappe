@@ -14,8 +14,8 @@ void setup() {
   game = new Game();
   registerMiniGames();
   frameRate(60);
-  //game.startCalibration();
-  game.start();
+  game.startCalibration();
+  //game.start();
 }
 
 void draw() {

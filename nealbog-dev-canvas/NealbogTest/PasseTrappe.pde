@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.net.Socket;
+import java.util.Random;
 
 abstract class PasseTrappe extends MiniGame {
   //constants
@@ -267,7 +268,7 @@ abstract class PasseTrappe extends MiniGame {
     names.add("Emma");
     
     Random r = new Random();
-    int valeur = r.nextInt(20)
+    int valeur = r.nextInt(20);
     
     return names.get(valeur);
   }
