@@ -15,7 +15,6 @@ public class PasseTrappe_2 extends PasseTrappe {
   }
   
   PasseTrappe_2(int l, String pi, boolean fromIndex) {
-    println("PT2 > " + l + " - " + pi);
     this.level = l;
     this.border = loadImage(pi);
     this.timer = new Timer(true);
@@ -51,6 +50,16 @@ public class PasseTrappe_2 extends PasseTrappe {
         p.update(inputHandler.getTouches());
       }
     }
+    
+    if(this.gameover){
+      if(inputHandler.getTouches().length > 0){
+        Touch t = inputHandler.getTouches()[0];
+        if(t.x > this.again.position.x && t.x < (this.again.position.x + 120) && t.y > this.again.position.y && t.y < (this.again.position.y + 80)){
+          println("new Game !");
+          startAgain();
+        } 
+      }
+    }
   }
   
   IState update(float delta) {
@@ -63,7 +72,6 @@ public class PasseTrappe_2 extends PasseTrappe {
   
   public void startAgain(){
     this.timer = new Timer(true);
-    println("nb pucks final" + this.pucks.size());
     for(Puck p : this.pucks){
       SMT.remove(p);
     }
@@ -89,15 +97,15 @@ public class PasseTrappe_2 extends PasseTrappe {
       textAlign( CENTER);
       text(t, window_halfWidth, 64);
       
-      println("le temps restant : " + t);
-      
       checkEndGame2P(timer.getRemainingTime());
     }else{
-      this.stop();
+      fill(255);
+      again.draw();
       textSize(52);
       fill(0, 102, 153);
       textAlign(CENTER);
       text(this.winner, window_halfWidth, window_halfHeight);
+      this.stop();
     }
   }
 }

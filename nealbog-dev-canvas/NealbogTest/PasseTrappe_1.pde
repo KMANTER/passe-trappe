@@ -49,7 +49,6 @@ public class PasseTrappe_1 extends PasseTrappe {
     }
     
     if(this.gameover){
-      println("its over");
       if(inputHandler.getTouches().length > 0){
         Touch t = inputHandler.getTouches()[0];
         if(t.x > this.again.position.x && t.x < (this.again.position.x + 120) && t.y > this.again.position.y && t.y < (this.again.position.y + 80)){
@@ -66,7 +65,6 @@ public class PasseTrappe_1 extends PasseTrappe {
   
   public void startAgain(){
     this.timer = new Timer(false);
-    println("nb pucks final" + this.pucks.size());
     for(Puck p : this.pucks){
       SMT.remove(p);
     }
@@ -91,7 +89,6 @@ public class PasseTrappe_1 extends PasseTrappe {
       textAlign( CENTER);
       text(t, window_halfWidth, 64);
       
-      println("le temps restant : " + t);
       checkEndGame1P(timer.getRemainingTime());
     }else{
       fill(255);
